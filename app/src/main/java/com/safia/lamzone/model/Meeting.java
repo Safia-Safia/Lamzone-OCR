@@ -1,18 +1,19 @@
 package com.safia.lamzone.model;
 
+import java.util.List;
+
 public class Meeting {
 
     private String mReunionName;
     private String mEmail;
-    private String mSubject;
-    private String mHour;
+    private String mStartTime,mEndTIme;
     private String mDate;
-    private String mMeetingUrl;
+    private Room mRoom;
 
-    public Meeting(String reunionName, String email,String meetingUrl) {
+    public Meeting(String reunionName, String email,Room room) {
         this.mReunionName = reunionName;
         this.mEmail = email;
-        this.mMeetingUrl =meetingUrl;
+        this.mRoom = room;
     }
 
     public String getReunionName() {
@@ -31,13 +32,11 @@ public class Meeting {
         mEmail = email;
     }
 
-    public String getMeetingUrl() {
-        return mMeetingUrl;
+    public Room getRoom() {
+        return mRoom;
     }
 
-    public void setMeetingUrl(String meetingUrl) {
-        mMeetingUrl = meetingUrl;
-    }
+    //public void setRoom(Room room) { mRoom = room; }
 
 
 }

@@ -8,6 +8,7 @@ import com.safia.lamzone.events.DeleteMeetingEvent;
 import com.safia.lamzone.di.DI;
 import com.safia.lamzone.model.Meeting;
 import com.safia.lamzone.service.MeetingApiService;
+import com.safia.lamzone.view.MeetingRecyclerviewAdapter;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -66,7 +67,7 @@ public class MeetingList extends AppCompatActivity {
 
    private void initList() {
        mMeeting = mApiService.getMeeting();
-       mAdapter = new ReunionRecyclerviewAdapter(mMeeting);
+       mAdapter = new MeetingRecyclerviewAdapter(mMeeting);
        mRecyclerView.setAdapter(mAdapter);
    }
     @Override

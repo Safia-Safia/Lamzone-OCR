@@ -22,4 +22,15 @@
     <string name="menu_slideshow">Slideshow</string>
 
     <string name="home_second">Home Second</string>
+
+        <string name="spiner_name">Spinner Example</string>
+        <string-array name="numbers">
+            <item>One</item>
+            <item>Two</item>
+            <item>Three</item>
+            <item>Four</item>
+            <item>Five</item>
+        </string-array>
 </resources>
+
+
