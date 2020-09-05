@@ -14,7 +14,7 @@ public class DummyMeetingGenerator {
             //new Meeting( "Exemple", "jus@gmail.com", 0x36000000 +   Color.GREEN)
             );
 
-    static List<Meeting> generateNeighbours() {
+    static List<Meeting> generateMeetings() {
         return new ArrayList<>(DUMMY_MEETINGS);
     }
 }

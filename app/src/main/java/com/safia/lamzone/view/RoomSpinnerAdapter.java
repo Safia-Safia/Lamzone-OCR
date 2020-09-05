@@ -42,6 +42,7 @@ public class RoomSpinnerAdapter extends ArrayAdapter<Room> {
         ImageView roomColor = convertView.findViewById(R.id.image_room_color);
         TextView textViewName = convertView.findViewById(R.id.text_view_name);
         Room mRoom = getItem(position);
+
         if (mRoom != null) {
             roomColor.setBackgroundColor(mRoom.getRoomColor());
             textViewName.setText(mRoom.getRoomName());

@@ -2,8 +2,8 @@ package com.safia.lamzone.model;
 
 public class Room {
 
-    private int roomColor;
     private String roomName;
+    private int roomColor;
 
 
     public Room(String roomName, int roomColor) {

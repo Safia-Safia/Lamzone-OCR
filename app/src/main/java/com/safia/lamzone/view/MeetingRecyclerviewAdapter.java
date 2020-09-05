@@ -39,6 +39,8 @@ public class MeetingRecyclerviewAdapter extends RecyclerView.Adapter<MeetingRecy
         holder.mReunionName.setText(meeting.getReunionName());
         holder.mMemberName.setText(meeting.getEmail());
         holder.mMeetingsPicture.setBackgroundColor(meeting.getRoom().getRoomColor());
+        holder.mDateText.setText(meeting.getDate());
+        holder.mTimeText.setText(meeting.getStartTime());
         holder.mDeleteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -53,13 +55,15 @@ public class MeetingRecyclerviewAdapter extends RecyclerView.Adapter<MeetingRecy
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
-        TextView mReunionName, mMemberName;
+        TextView mReunionName, mMemberName,mDateText, mTimeText;
         ImageButton mDeleteBtn;
         ImageView mMeetingsPicture;
         ViewHolder(View view){
             super(view);
             mReunionName = view.findViewById(R.id.txt_reunionName);
             mMemberName = view.findViewById(R.id.text_memberName);
+            mDateText = view.findViewById(R.id.txt_reunionDate);
+            mTimeText = view.findViewById(R.id.txt_hour);
             mMeetingsPicture = view.findViewById(R.id.imageView_meeting_picture);
             mDeleteBtn = view.findViewById(R.id.imageButton_delete);
         }
