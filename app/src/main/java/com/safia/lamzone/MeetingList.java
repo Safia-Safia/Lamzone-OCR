@@ -57,8 +57,6 @@ public class MeetingList extends AppCompatActivity {
         });
     }
 
-
-
     private void setUpRecyclerView(){
         mRecyclerView = findViewById(R.id.meeting_list);
         layoutManager = new LinearLayoutManager(this);
@@ -70,6 +68,7 @@ public class MeetingList extends AppCompatActivity {
        mAdapter = new MeetingRecyclerviewAdapter(mMeeting);
        mRecyclerView.setAdapter(mAdapter);
    }
+
     @Override
     public void onResume() {
         super.onResume();

@@ -29,4 +29,9 @@ public class DummyMeetingApiService implements MeetingApiService {
     public void deleteMeeting(Meeting meeting) {
         reunions.remove(meeting);
     }
+
+    @Override
+    public boolean isRoomAvailable(Meeting meeting) {
+        return false;
+    }
 }

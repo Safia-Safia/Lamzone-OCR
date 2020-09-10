@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="20dp">
+    >
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -14,6 +14,7 @@
             android:id="@+id/imageView_meeting_picture"
             android:layout_width="38dp"
             android:layout_height="39dp"
+            android:src="@drawable/circle"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -26,15 +27,16 @@
             android:text="Meeting subject"
             android:textColor="#000"
             android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/text_memberName"
+            app:layout_constraintBottom_toTopOf="@+id/text_memberMails"
             app:layout_constraintStart_toEndOf="@+id/imageView_meeting_picture"
             app:layout_constraintTop_toTopOf="@+id/imageView_meeting_picture" />
 
         <TextView
-            android:id="@+id/text_memberName"
+            android:id="@+id/text_memberMails"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
+            android:textColor="#000"
             android:text="Mail of Member"
             android:textStyle="bold"
             app:layout_constraintStart_toEndOf="@+id/imageView_meeting_picture"
@@ -48,7 +50,7 @@
             android:text="Meeting subject"
             android:textColor="#000"
             android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/text_memberName"
+            app:layout_constraintBottom_toTopOf="@+id/text_memberMails"
             app:layout_constraintStart_toEndOf="@+id/txt_reunionName"
             app:layout_constraintTop_toTopOf="@+id/imageView_meeting_picture" />
 
@@ -60,7 +62,7 @@
             android:text="hour"
             android:textColor="#000"
             android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/text_memberName"
+            app:layout_constraintBottom_toTopOf="@+id/text_memberMails"
             app:layout_constraintStart_toEndOf="@+id/txt_reunionDate"
             app:layout_constraintTop_toTopOf="@+id/imageView_meeting_picture" />
 

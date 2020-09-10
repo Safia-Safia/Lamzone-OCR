@@ -5,6 +5,8 @@ import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -13,9 +15,11 @@ import android.widget.EditText;
 
 import android.widget.ImageButton;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.safia.lamzone.di.DI;
@@ -26,17 +30,21 @@ import com.safia.lamzone.view.RoomSpinnerAdapter;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 public class AddMeetingActivity extends AppCompatActivity {
-    private EditText mMeetingName, mEmail;
+    private EditText mMeetingName;
+    List<String> mList_Emails = new ArrayList<>();
+    private TextView mText_Time, mText_Date;
     private MeetingApiService mApiService;
     private ArrayList<Room> mRoomList;
     private Room meetingRoomChoose;
     RoomSpinnerAdapter mAdapter;
     Spinner spinnerRooms;
-    private Button createBtn;
+    private Button createBtn, mBtn_add_email;
     private ImageButton datePicker, timePicker;
     private String date, time;
+    public static final int ADD_USER_ACTIVITY_REQUEST_CODE = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,40 +54,42 @@ public class AddMeetingActivity extends AppCompatActivity {
         setUpViews();
         setUpSpinner();
         setUpDatePicker();
+        setUpEmailBtn();
         setUpTimePicker();
         onCreateBtn();
         onClickOnSpinner();
     }
 
-    public void setUpViews() {
+    private void setUpViews() {
         mApiService = DI.getMeetingApiService();
         mMeetingName = findViewById(R.id.edit_meeting_name);
-        mEmail = findViewById(R.id.edit_email);
+        mBtn_add_email = findViewById(R.id.btn_add_email);
         createBtn = findViewById(R.id.btn_create);
         spinnerRooms = findViewById(R.id.spinner);
         datePicker = findViewById(R.id.btn_datePicker);
         timePicker = findViewById(R.id.btn_timePicker);
+        mText_Date = findViewById(R.id.txt_date_picker);
+        mText_Time = findViewById(R.id.txt_time_picker);
     }
 
-    public void onCreateBtn() {
+    private void onCreateBtn() {
         createBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Meeting reunion = new Meeting(mMeetingName.getText().toString(), mEmail.getText().toString(), meetingRoomChoose, date, time);
+                Meeting reunion = new Meeting(mMeetingName.getText().toString(), mList_Emails, meetingRoomChoose, date, time);
                 mApiService.addMeeting(reunion);
-                Intent intent = new Intent(AddMeetingActivity.this, MeetingList.class);
-                startActivity(intent);
+                finish();
             }
         });
     }
 
-    public void setUpSpinner() {
-        initList();
+    private void setUpSpinner() {
+        roomList();
         mAdapter = new RoomSpinnerAdapter(this, mRoomList);
         spinnerRooms.setAdapter(mAdapter);
     }
 
-    public void onClickOnSpinner() {
+    private void onClickOnSpinner() {
         setUpSpinner();
         spinnerRooms.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -96,7 +106,7 @@ public class AddMeetingActivity extends AppCompatActivity {
         });
     }
 
-    private void initList() {
+    private void roomList() {
         mRoomList = new ArrayList<>();
         mRoomList.add(new Room("Salle 1", 0x36000000 + Color.GREEN));
         mRoomList.add(new Room("Salle 2", 0x36000000 + Color.BLUE));
@@ -105,7 +115,7 @@ public class AddMeetingActivity extends AppCompatActivity {
         mRoomList.add(new Room("Salle 5", 0x36000000 + Color.BLACK));
     }
 
-    public void setUpDatePicker() {
+    private void setUpDatePicker() {
         datePicker.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -118,7 +128,8 @@ public class AddMeetingActivity extends AppCompatActivity {
                 mDatePicker = new DatePickerDialog(AddMeetingActivity.this, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker datePicker, int year, int month, int dayOfMonth) {
-                        date = ", " + dayOfMonth + "/" + month + "/" + year;
+                        date = dayOfMonth + "/" + month + "/" + year;
+                        mText_Date.setText(date);
                     }
                 }, year, month, day);
                 mDatePicker.show();
@@ -127,7 +138,7 @@ public class AddMeetingActivity extends AppCompatActivity {
 
     }
 
-    public void setUpTimePicker() {
+    private void setUpTimePicker() {
         timePicker.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -140,6 +151,7 @@ public class AddMeetingActivity extends AppCompatActivity {
                     @Override
                     public void onTimeSet(TimePicker timePicker, int hour, int minute) {
                         time = hour + ":" + minute;
+                        mText_Time.setText(time);
                     }
                 }, hour, minute, true);
                 mTimePicker.show();
@@ -147,4 +159,25 @@ public class AddMeetingActivity extends AppCompatActivity {
         });
     }
 
+    private void setUpEmailBtn() {
+        mBtn_add_email.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent addUserIntent = new Intent(AddMeetingActivity.this, AddUser.class);
+                startActivityForResult(addUserIntent, ADD_USER_ACTIVITY_REQUEST_CODE);
+            }
+        });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (ADD_USER_ACTIVITY_REQUEST_CODE == requestCode && RESULT_OK == resultCode) {
+            String name = data.getStringExtra(AddUser.BUNDLE_EXTRA_NAME);
+            mList_Emails.add(name);
+            }
+        }
+
 }
+
+

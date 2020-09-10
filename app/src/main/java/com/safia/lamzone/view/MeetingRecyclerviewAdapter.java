@@ -1,5 +1,7 @@
 package com.safia.lamzone.view;
 
+import android.content.Context;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,9 +11,11 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.safia.lamzone.R;
 import com.safia.lamzone.events.DeleteMeetingEvent;
 import com.safia.lamzone.model.Meeting;
+import com.safia.lamzone.service.MeetingRoomGenerator;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -23,7 +27,6 @@ public class MeetingRecyclerviewAdapter extends RecyclerView.Adapter<MeetingRecy
 
     public MeetingRecyclerviewAdapter(List<Meeting> items){
        mReunionList = items;
-       notifyDataSetChanged();
     }
 
     @Override
@@ -37,7 +40,7 @@ public class MeetingRecyclerviewAdapter extends RecyclerView.Adapter<MeetingRecy
     public void onBindViewHolder(ViewHolder holder, int position) {
         final Meeting meeting = mReunionList.get(position);
         holder.mReunionName.setText(meeting.getReunionName());
-        holder.mMemberName.setText(meeting.getEmail());
+        holder.mMemberMails.setText(meeting.getEmails().toString());
         holder.mMeetingsPicture.setBackgroundColor(meeting.getRoom().getRoomColor());
         holder.mDateText.setText(meeting.getDate());
         holder.mTimeText.setText(meeting.getStartTime());
@@ -55,13 +58,13 @@ public class MeetingRecyclerviewAdapter extends RecyclerView.Adapter<MeetingRecy
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
-        TextView mReunionName, mMemberName,mDateText, mTimeText;
+        TextView mReunionName, mMemberMails,mDateText, mTimeText;
         ImageButton mDeleteBtn;
         ImageView mMeetingsPicture;
         ViewHolder(View view){
             super(view);
             mReunionName = view.findViewById(R.id.txt_reunionName);
-            mMemberName = view.findViewById(R.id.text_memberName);
+            mMemberMails = view.findViewById(R.id.text_memberMails);
             mDateText = view.findViewById(R.id.txt_reunionDate);
             mTimeText = view.findViewById(R.id.txt_hour);
             mMeetingsPicture = view.findViewById(R.id.imageView_meeting_picture);

@@ -5,13 +5,15 @@ import java.util.List;
 public class Meeting {
 
     private String mReunionName;
-    private String mEmail;
+
+
+    private List<String> mEmails;
     private String mStartTime,mEndTIme, mDate;
     private Room mRoom;
 
-    public Meeting(String reunionName, String email,Room room, String date, String startTime) {
+    public Meeting(String reunionName, List <String> email,Room room, String date, String startTime) {
         this.mReunionName = reunionName;
-        this.mEmail = email;
+        this.mEmails = email;
         this.mRoom = room;
         this.mDate = date;
         this.mStartTime = startTime;
@@ -25,13 +27,7 @@ public class Meeting {
         mReunionName = reunionName;
     }
 
-    public String getEmail() {
-        return mEmail;
-    }
 
-    public void setEmail(String email) {
-        mEmail = email;
-    }
 
     public Room getRoom() {
         return mRoom;
@@ -54,4 +50,21 @@ public class Meeting {
     public void setStartTime(String startTime) {
         mStartTime = startTime;
     }
+
+    public List<String> getEmails() {
+        return mEmails;
+    }
+
+    public void setEmails(List<String> emails) {
+        mEmails = emails;
+    }
+
+    public String getEndTIme() {
+        return mEndTIme;
+    }
+
+    public void setEndTIme(String endTIme) {
+        mEndTIme = endTIme;
+    }
+
 }
