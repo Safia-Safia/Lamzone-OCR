@@ -23,10 +23,10 @@ import java.util.List;
 
 public class MeetingRecyclerviewAdapter extends RecyclerView.Adapter<MeetingRecyclerviewAdapter.ViewHolder> {
 
-    private final List <Meeting> mReunionList;
+    private final List<Meeting> mReunionList;
 
-    public MeetingRecyclerviewAdapter(List<Meeting> items){
-       mReunionList = items;
+    public MeetingRecyclerviewAdapter(List<Meeting> items) {
+        mReunionList = items;
     }
 
     @Override
@@ -58,10 +58,11 @@ public class MeetingRecyclerviewAdapter extends RecyclerView.Adapter<MeetingRecy
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
-        TextView mReunionName, mMemberMails,mDateText, mTimeText;
+        TextView mReunionName, mMemberMails, mDateText, mTimeText;
         ImageButton mDeleteBtn;
         ImageView mMeetingsPicture;
-        ViewHolder(View view){
+
+        ViewHolder(View view) {
             super(view);
             mReunionName = view.findViewById(R.id.txt_reunionName);
             mMemberMails = view.findViewById(R.id.text_memberMails);
