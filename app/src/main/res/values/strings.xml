@@ -25,6 +25,14 @@
 
         <string name="spiner_name">Spinner Example</string>
     <string name="ajouter_reunion_textview">Ajouter une réunion</string>
+    <string name="emptyData">Il faut remplir tous les champs !</string>
+    <string name="anavailableRoom">Salle occupée</string>
+    <string name="saisir_un_titre">Saisir un titre</string>
+    <string name="save">enregistrer</string>
+    <string name="add_email">Ajouter des participants</string>
+    <string name="date">Date de la Réunion</string>
+    <string name="start_hour">Début </string>
+    <string name="hour_end">Fin</string>
     <string-array name="numbers">
             <item>One</item>
             <item>Two</item>

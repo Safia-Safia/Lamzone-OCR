@@ -1,12 +1,15 @@
-package com.safia.lamzone;
+package com.safia.lamzone.view;
 
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.safia.lamzone.R;
 
 import java.util.List;
 
@@ -25,7 +28,6 @@ public class UserRecyclerView extends RecyclerView.Adapter<UserRecyclerView.MyVi
         return new MyViewHolder(v);
     }
 
-
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
         holder.display(mParticipants.get(position));
@@ -36,16 +38,15 @@ public class UserRecyclerView extends RecyclerView.Adapter<UserRecyclerView.MyVi
         return mParticipants == null ? 0 : mParticipants.size();
     }
 
-
-    public static class MyViewHolder extends RecyclerView.ViewHolder {
+    static class MyViewHolder extends RecyclerView.ViewHolder {
         TextView userEmailAddress;
 
-        public MyViewHolder(View v) {
+        MyViewHolder(View v) {
             super(v);
-            userEmailAddress = v.findViewById(R.id.txt_user_adress_email);
+            userEmailAddress = v.findViewById(R.id.txt_user_address_email);
         }
 
-        public void display(String userEmailAddress) {
+        void display(String userEmailAddress) {
             this.userEmailAddress.setText(userEmailAddress);
         }
     }

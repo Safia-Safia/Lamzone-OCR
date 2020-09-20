@@ -5,7 +5,6 @@ import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -20,6 +19,7 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.Toolbar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.safia.lamzone.di.DI;
@@ -30,21 +30,21 @@ import com.safia.lamzone.view.RoomSpinnerAdapter;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
 
 public class AddMeetingActivity extends AppCompatActivity {
     private EditText mMeetingName;
-    List<String> mList_Emails = new ArrayList<>();
-    private TextView mText_Time, mText_Date;
+    ArrayList<String> mList_Emails = new ArrayList<>();
+    private TextView mText_StartTime,mText_EndTime, mText_Date, mCardView_Email;
     private MeetingApiService mApiService;
     private ArrayList<Room> mRoomList;
     private Room meetingRoomChoose;
     RoomSpinnerAdapter mAdapter;
     Spinner spinnerRooms;
     private Button createBtn, mBtn_add_email;
-    private ImageButton datePicker, timePicker;
+    private ImageButton datePicker, startTimePicker, endTimePicker;
     private String date, time;
     public static final int ADD_USER_ACTIVITY_REQUEST_CODE = 1;
+    private Toolbar mToolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,10 +52,12 @@ public class AddMeetingActivity extends AppCompatActivity {
         setContentView(R.layout.activity_create_reunion);
 
         setUpViews();
+        setUpToolbar();
         setUpSpinner();
         setUpDatePicker();
         setUpEmailBtn();
-        setUpTimePicker();
+        setUpStartTimePicker();
+        setUpEndTimePicker();
         onCreateBtn();
         onClickOnSpinner();
     }
@@ -67,18 +69,28 @@ public class AddMeetingActivity extends AppCompatActivity {
         createBtn = findViewById(R.id.btn_create);
         spinnerRooms = findViewById(R.id.spinner);
         datePicker = findViewById(R.id.btn_datePicker);
-        timePicker = findViewById(R.id.btn_timePicker);
+        startTimePicker = findViewById(R.id.btn_timePicker);
+        endTimePicker = findViewById(R.id.btn_end_timePicker);
         mText_Date = findViewById(R.id.txt_date_picker);
-        mText_Time = findViewById(R.id.txt_time_picker);
+        mText_StartTime = findViewById(R.id.txt_start_time_picker);
+        mText_EndTime = findViewById(R.id.txt_end_time_picker);
+        mCardView_Email = findViewById(R.id.email_textview);
+        mToolbar = findViewById(R.id.toolbar2);
     }
 
     private void onCreateBtn() {
         createBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Meeting reunion = new Meeting(mMeetingName.getText().toString(), mList_Emails, meetingRoomChoose, date, time);
-                mApiService.addMeeting(reunion);
-                finish();
+                Meeting meeting = new Meeting(mMeetingName.getText().toString(), mList_Emails, meetingRoomChoose, date, time);
+                if (checkDataValid()) {
+                    if (mApiService.isRoomAvailable(meeting)) {
+                        mApiService.addMeeting(meeting);
+                        finish();
+                    } else {
+                        Toast.makeText(AddMeetingActivity.this, R.string.anavailableRoom, Toast.LENGTH_LONG).show();
+                    }
+                }
             }
         });
     }
@@ -87,6 +99,14 @@ public class AddMeetingActivity extends AppCompatActivity {
         roomList();
         mAdapter = new RoomSpinnerAdapter(this, mRoomList);
         spinnerRooms.setAdapter(mAdapter);
+    }
+
+    private void setUpToolbar(){
+        mToolbar.setTitle(" Ajouter une réunion ");
+        mToolbar.getResources().getColor(android.R.color.white);
+        setSupportActionBar(mToolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
     }
 
     private void onClickOnSpinner() {
@@ -108,10 +128,10 @@ public class AddMeetingActivity extends AppCompatActivity {
 
     private void roomList() {
         mRoomList = new ArrayList<>();
-        mRoomList.add(new Room("Salle 1", 0x36000000 + Color.GREEN));
+        mRoomList.add(new Room("Salle 1", 0x36000000 + Color.CYAN));
         mRoomList.add(new Room("Salle 2", 0x36000000 + Color.BLUE));
         mRoomList.add(new Room("Salle 3", 0x36000000 + Color.RED));
-        mRoomList.add(new Room("Salle 4", 0x36000000 + Color.YELLOW));
+        mRoomList.add(new Room("Salle 4", 0x36000000 + Color.GREEN));
         mRoomList.add(new Room("Salle 5", 0x36000000 + Color.BLACK));
     }
 
@@ -138,8 +158,8 @@ public class AddMeetingActivity extends AppCompatActivity {
 
     }
 
-    private void setUpTimePicker() {
-        timePicker.setOnClickListener(new View.OnClickListener() {
+    private void setUpStartTimePicker() {
+        startTimePicker.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Calendar currentHour = Calendar.getInstance();
@@ -150,20 +170,44 @@ public class AddMeetingActivity extends AppCompatActivity {
                 mTimePicker = new TimePickerDialog(AddMeetingActivity.this, new TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker timePicker, int hour, int minute) {
-                        time = hour + ":" + minute;
-                        mText_Time.setText(time);
+                        time = hour + " : " + minute;
+                        mText_StartTime.setText(time);
                     }
-                }, hour, minute, true);
+                }, hour, minute, false);
                 mTimePicker.show();
             }
         });
     }
 
+    private void setUpEndTimePicker() {
+        endTimePicker.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Calendar currentHour = Calendar.getInstance();
+                int hour = currentHour.get(Calendar.HOUR_OF_DAY);
+                int minute = currentHour.get(Calendar.MINUTE);
+                TimePickerDialog mTimePicker;
+
+                mTimePicker = new TimePickerDialog(AddMeetingActivity.this, new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker timePicker, int hour, int minute) {
+                        time = hour + " : " + minute;
+                        mText_EndTime.setText(time);
+                    }
+                }, hour, minute, false);
+                mTimePicker.show();
+            }
+        });
+    }
+
+
+
     private void setUpEmailBtn() {
         mBtn_add_email.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent addUserIntent = new Intent(AddMeetingActivity.this, AddUser.class);
+                Intent addUserIntent = new Intent(AddMeetingActivity.this, AddUserActivity.class);
+                addUserIntent.putStringArrayListExtra(AddUserActivity.BUNDLE_EXTRA_NAME, mList_Emails);
                 startActivityForResult(addUserIntent, ADD_USER_ACTIVITY_REQUEST_CODE);
             }
         });
@@ -173,10 +217,27 @@ public class AddMeetingActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (ADD_USER_ACTIVITY_REQUEST_CODE == requestCode && RESULT_OK == resultCode) {
-            String name = data.getStringExtra(AddUser.BUNDLE_EXTRA_NAME);
-            mList_Emails.add(name);
-            }
+            mList_Emails = data.getStringArrayListExtra(AddUserActivity.BUNDLE_EXTRA_NAME);
+            mCardView_Email.setText(mList_Emails.toString().replace('[', ' ').replace(']', ' ').replace(',',' '));
         }
+    }
+
+    public boolean checkDataValid() {
+        if (mMeetingName.getText().toString().isEmpty() || mList_Emails.size() == 0 ||
+                mText_StartTime.toString().isEmpty() || mText_Date.getText().toString().isEmpty()) {
+            Toast.makeText(this, R.string.emptyData, Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
 }
 

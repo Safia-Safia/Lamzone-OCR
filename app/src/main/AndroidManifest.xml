@@ -15,7 +15,7 @@
             android:theme="@style/AppTheme.NoActionBar" >
         </activity>
         <activity
-            android:name=".AddUser"
+            android:name=".AddUserActivity"
             android:label="AddUser"
             android:theme="@style/AppTheme.NoActionBar" >
         </activity>

@@ -1,7 +1,5 @@
 package com.safia.lamzone.view;
 
-import android.content.Context;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,11 +9,9 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
 import com.safia.lamzone.R;
 import com.safia.lamzone.events.DeleteMeetingEvent;
 import com.safia.lamzone.model.Meeting;
-import com.safia.lamzone.service.MeetingRoomGenerator;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -40,7 +36,7 @@ public class MeetingRecyclerviewAdapter extends RecyclerView.Adapter<MeetingRecy
     public void onBindViewHolder(ViewHolder holder, int position) {
         final Meeting meeting = mReunionList.get(position);
         holder.mReunionName.setText(meeting.getReunionName());
-        holder.mMemberMails.setText(meeting.getEmails().toString());
+        holder.mMemberMails.setText(meeting.getEmails().toString().replace('[',' ').replace(']',' '));
         holder.mMeetingsPicture.setBackgroundColor(meeting.getRoom().getRoomColor());
         holder.mDateText.setText(meeting.getDate());
         holder.mTimeText.setText(meeting.getStartTime());
