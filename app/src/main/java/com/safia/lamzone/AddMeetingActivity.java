@@ -42,7 +42,7 @@ public class AddMeetingActivity extends AppCompatActivity {
     Spinner spinnerRooms;
     private Button createBtn, mBtn_add_email;
     private ImageButton datePicker, startTimePicker, endTimePicker;
-    private String date, time;
+    private String date, startTime, endTime;
     public static final int ADD_USER_ACTIVITY_REQUEST_CODE = 1;
     private Toolbar mToolbar;
 
@@ -82,9 +82,9 @@ public class AddMeetingActivity extends AppCompatActivity {
         createBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Meeting meeting = new Meeting(mMeetingName.getText().toString(), mList_Emails, meetingRoomChoose, date, time);
+                Meeting meeting = new Meeting(mMeetingName.getText().toString(), mList_Emails, meetingRoomChoose, date, startTime,endTime);
                 if (checkDataValid()) {
-                    if (mApiService.isRoomAvailable(meeting)) {
+                    if (mApiService.isRoomAvailable(meeting) || mApiService.isDateAvailable(meeting) || mApiService.isTimeAvailable(meeting)) {
                         mApiService.addMeeting(meeting);
                         finish();
                     } else {
@@ -170,8 +170,8 @@ public class AddMeetingActivity extends AppCompatActivity {
                 mTimePicker = new TimePickerDialog(AddMeetingActivity.this, new TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker timePicker, int hour, int minute) {
-                        time = hour + " : " + minute;
-                        mText_StartTime.setText(time);
+                        startTime = hour + " : " + minute;
+                        mText_StartTime.setText(startTime);
                     }
                 }, hour, minute, false);
                 mTimePicker.show();
@@ -191,16 +191,14 @@ public class AddMeetingActivity extends AppCompatActivity {
                 mTimePicker = new TimePickerDialog(AddMeetingActivity.this, new TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker timePicker, int hour, int minute) {
-                        time = hour + " : " + minute;
-                        mText_EndTime.setText(time);
+                        endTime = hour + " : " + minute;
+                        mText_EndTime.setText(endTime);
                     }
                 }, hour, minute, false);
                 mTimePicker.show();
             }
         });
     }
-
-
 
     private void setUpEmailBtn() {
         mBtn_add_email.setOnClickListener(new View.OnClickListener() {

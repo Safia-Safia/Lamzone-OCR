@@ -39,7 +39,8 @@ public class MeetingRecyclerviewAdapter extends RecyclerView.Adapter<MeetingRecy
         holder.mMemberMails.setText(meeting.getEmails().toString().replace('[',' ').replace(']',' '));
         holder.mMeetingsPicture.setBackgroundColor(meeting.getRoom().getRoomColor());
         holder.mDateText.setText(meeting.getDate());
-        holder.mTimeText.setText(meeting.getStartTime());
+        holder.mStartTimeText.setText(meeting.getStartTime());
+        holder.mEndTimeText.setText(meeting.getEndTime());
         holder.mDeleteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -54,7 +55,7 @@ public class MeetingRecyclerviewAdapter extends RecyclerView.Adapter<MeetingRecy
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
-        TextView mReunionName, mMemberMails, mDateText, mTimeText;
+        TextView mReunionName, mMemberMails, mDateText, mStartTimeText, mEndTimeText;
         ImageButton mDeleteBtn;
         ImageView mMeetingsPicture;
 
@@ -63,7 +64,8 @@ public class MeetingRecyclerviewAdapter extends RecyclerView.Adapter<MeetingRecy
             mReunionName = view.findViewById(R.id.txt_reunionName);
             mMemberMails = view.findViewById(R.id.text_memberMails);
             mDateText = view.findViewById(R.id.txt_reunionDate);
-            mTimeText = view.findViewById(R.id.txt_hour);
+            mStartTimeText = view.findViewById(R.id.txt_startTime);
+            mEndTimeText = view.findViewById(R.id.txt_endTime);
             mMeetingsPicture = view.findViewById(R.id.imageView_meeting_picture);
             mDeleteBtn = view.findViewById(R.id.imageButton_delete);
         }

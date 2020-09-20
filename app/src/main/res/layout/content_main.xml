@@ -15,6 +15,7 @@
             android:layout_width="38dp"
             android:layout_height="39dp"
             android:src="@drawable/circle"
+            android:background="#6E0B14"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -25,7 +26,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:text="Meeting subject"
-            android:textColor="#000"
+            android:textSize="18sp"
+            android:textColor="#6E0B14"
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/text_memberMails"
             app:layout_constraintStart_toEndOf="@+id/imageView_meeting_picture"
@@ -46,24 +48,36 @@
             android:id="@+id/txt_reunionDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="2dp"
-            android:text="Meeting subject"
+            android:layout_marginStart="10dp"
+            android:textSize="13sp"
+            android:text="Date"
             android:textColor="#000"
-            android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/text_memberMails"
             app:layout_constraintStart_toEndOf="@+id/txt_reunionName"
             app:layout_constraintTop_toTopOf="@+id/imageView_meeting_picture" />
 
         <TextView
-            android:id="@+id/txt_hour"
+            android:id="@+id/txt_startTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="2dp"
-            android:text="hour"
+            android:layout_marginStart="10dp"
+            android:textSize="12sp"
+            android:text="startTime"
             android:textColor="#000"
-            android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/text_memberMails"
             app:layout_constraintStart_toEndOf="@+id/txt_reunionDate"
+            app:layout_constraintTop_toTopOf="@+id/imageView_meeting_picture" />
+
+        <TextView
+            android:id="@+id/txt_endTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:textSize="12sp"
+            android:text="endTime"
+            android:textColor="#000"
+            app:layout_constraintBottom_toTopOf="@+id/text_memberMails"
+            app:layout_constraintStart_toEndOf="@+id/txt_startTime"
             app:layout_constraintTop_toTopOf="@+id/imageView_meeting_picture" />
 
         <ImageButton
@@ -72,7 +86,7 @@
             android:layout_height="20dp"
             android:layout_marginEnd="16dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txt_hour"
+            app:layout_constraintTop_toBottomOf="@+id/txt_startTime"
             app:srcCompat="@drawable/ic_delete" />
 
 

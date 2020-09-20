@@ -17,4 +17,7 @@ public interface MeetingApiService {
 
     boolean isRoomAvailable(Meeting meeting);
 
+    boolean isDateAvailable(Meeting meeting);
+
+    boolean isTimeAvailable (Meeting meeting);
 }

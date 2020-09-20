@@ -15,6 +15,7 @@
             android:id="@+id/text_view_user_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:backgroundTint="#991d34"
             app:layout_constraintTop_toTopOf="parent">
 
             <TextView
@@ -23,7 +24,7 @@
                 android:layout_marginBottom="10dp"
                 android:gravity="center"
                 android:text="Ajouter des participants"
-                android:textColor="#3A8EBA"
+                android:textColor="#FFF"
                 android:textSize="24sp"
                 android:textStyle="bold" />
         </androidx.cardview.widget.CardView>
@@ -33,7 +34,7 @@
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginStart="50dp"
+            android:padding="30dp"
             android:gravity="center"
             android:hint="Ajouter un participant"
             android:inputType="textEmailAddress"
@@ -45,21 +46,21 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_margin="10dp"
-            android:background="#3A8EBA"
+            android:layout_margin="20dp"
+            android:background="#8a1e32"
             android:text="AJOUTER"
             android:textColor="#FFFFFF"
             android:textSize="15sp"
             android:enabled="false"
             app:layout_constraintEnd_toEndOf="@+id/text_view_user_email"
-            app:layout_constraintStart_toStartOf="@+id/text_view_user_email"
-            app:layout_constraintTop_toBottomOf="@+id/edit_text_user_email"
+            app:layout_constraintStart_toEndOf="@+id/edit_text_user_email"
+            app:layout_constraintTop_toBottomOf="@+id/text_view_user_email"
 
             />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/user_recyclerview"
-            android:layout_marginVertical="10dp"
+            android:layout_marginVertical="30dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@+id/btn_new_user"
@@ -74,5 +75,5 @@
         android:layout_gravity="center_horizontal"
         android:background="@null"
         android:text="Terminer"
-        android:textColor="#3A8EBA" />
+        android:textColor="#991d34" />
 </LinearLayout>

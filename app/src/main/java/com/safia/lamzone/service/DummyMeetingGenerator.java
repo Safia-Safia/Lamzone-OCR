@@ -11,8 +11,8 @@ import java.util.List;
 
 public class DummyMeetingGenerator {
     public static List<Meeting> DUMMY_MEETINGS = Arrays.asList(
-           // new Meeting( "Example", "yaourt@gmail.com",  0x36000000 +Color.YELLOW),
-            //new Meeting( "Exemple", "jus@gmail.com", 0x36000000 +   Color.GREEN)
+           // new Meeting( "Example", emails,  0x36000000 +Color.YELLOW),
+           // new Meeting( "Exemple", emails, 0x36000000 +   Color.GREEN)
             );
 
     static List<Meeting> generateMeetings() {
@@ -31,6 +31,12 @@ public class DummyMeetingGenerator {
     static List<Room> generateRooms() {
         return new ArrayList<>(DUMMY_ROOMS);
     }
+
+     private ArrayList <String> emails = new ArrayList<String>(){{
+        emails.add("Exemple1@hotmail.fr");
+        emails.add("Eemple2@gmail.com");
+        emails.add("Exemple3@gmail.com");
+    }};
 }
 
 

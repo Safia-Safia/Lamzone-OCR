@@ -8,63 +8,41 @@ public class Meeting {
 
 
     private List<String> mEmails;
-    private String mStartTime,mEndTIme, mDate;
+    private String mStartTime, mEndTime, mDate;
     private Room mRoom;
 
-    public Meeting(String reunionName, List <String> email,Room room, String date, String startTime) {
+    public Meeting(String reunionName, List <String> email,Room room, String date, String startTime, String endTime) {
         this.mReunionName = reunionName;
         this.mEmails = email;
         this.mRoom = room;
         this.mDate = date;
         this.mStartTime = startTime;
+        this.mEndTime = endTime;
     }
 
     public String getReunionName() {
         return mReunionName;
     }
 
-    public void setReunionName(String reunionName) {
-        mReunionName = reunionName;
-    }
-
-
-
     public Room getRoom() {
         return mRoom;
     }
 
-    public void setRoom(Room room) { mRoom = room; }
-
     public String getDate() {
         return mDate;
-    }
-
-    public void setDate(String date) {
-        mDate = date;
     }
 
     public String getStartTime() {
         return mStartTime;
     }
 
-    public void setStartTime(String startTime) {
-        mStartTime = startTime;
-    }
-
     public List<String> getEmails() {
         return mEmails;
     }
 
-    public void setEmails(List<String> emails) {
-        mEmails = emails;
+    public String getEndTime() {
+        return mEndTime;
     }
 
-    public String getEndTIme() {
-        return mEndTIme;
-    }
-
-    public void setEndTIme(String endTIme) {
-        mEndTIme = endTIme;
-    }
 
 }
