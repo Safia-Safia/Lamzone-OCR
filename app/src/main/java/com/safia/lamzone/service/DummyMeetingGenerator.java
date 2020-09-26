@@ -10,10 +10,6 @@ import java.util.Arrays;
 import java.util.List;
 
 public class DummyMeetingGenerator {
-    public static List<Meeting> DUMMY_MEETINGS = Arrays.asList(
-           // new Meeting( "Example", emails,  0x36000000 +Color.YELLOW),
-           // new Meeting( "Exemple", emails, 0x36000000 +   Color.GREEN)
-            );
 
     static List<Meeting> generateMeetings() {
         return new ArrayList<>(DUMMY_MEETINGS);
@@ -32,11 +28,11 @@ public class DummyMeetingGenerator {
         return new ArrayList<>(DUMMY_ROOMS);
     }
 
-     private ArrayList <String> emails = new ArrayList<String>(){{
-        emails.add("Exemple1@hotmail.fr");
-        emails.add("Eemple2@gmail.com");
-        emails.add("Exemple3@gmail.com");
-    }};
+    public static List<Meeting> DUMMY_MEETINGS = Arrays.asList(
+         //   new Meeting("Example", emails, generateRooms().get(0), "26/3", "13h30", "14h40")
+         //   , new Meeting("Example", emails, generateRooms().get(2), "26/3", "13h30", "14h40")
+    );
+
 }
 
 

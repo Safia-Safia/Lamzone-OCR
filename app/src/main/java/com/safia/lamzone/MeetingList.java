@@ -21,13 +21,14 @@ import org.greenrobot.eventbus.Subscribe;
 
 import java.util.List;
 
-public class MeetingList extends AppCompatActivity {
+public class MeetingList extends AppCompatActivity implements MeetingRecyclerviewAdapter.onMeetingClickListener {
     FloatingActionButton fab;
     private List<Meeting> mMeeting;
     private RecyclerView mRecyclerView;
     private MeetingApiService mApiService;
     private RecyclerView.LayoutManager layoutManager;
     private RecyclerView.Adapter mAdapter;
+    public static final String KEY_MEETING = "KEY_MEETING";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,33 +42,33 @@ public class MeetingList extends AppCompatActivity {
 
     }
 
-    public void setUpView(){
-        mApiService= DI.getMeetingApiService();
-        fab=findViewById(R.id.addReunion);
+    public void setUpView() {
+        mApiService = DI.getMeetingApiService();
+        fab = findViewById(R.id.addReunion);
 
     }
 
-    public void onClickFab(){
+    public void onClickFab() {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent (MeetingList.this, AddMeetingActivity.class);
+                Intent intent = new Intent(MeetingList.this, AddMeetingActivity.class);
                 startActivity(intent);
             }
         });
     }
 
-    private void setUpRecyclerView(){
+    private void setUpRecyclerView() {
         mRecyclerView = findViewById(R.id.meeting_list);
         layoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(layoutManager);
     }
 
-   private void initList() {
-       mMeeting = mApiService.getMeeting();
-       mAdapter = new MeetingRecyclerviewAdapter(mMeeting);
-       mRecyclerView.setAdapter(mAdapter);
-   }
+    private void initList() {
+        mMeeting = mApiService.getMeeting();
+        mAdapter = new MeetingRecyclerviewAdapter(mMeeting, this);
+        mRecyclerView.setAdapter(mAdapter);
+    }
 
     @Override
     public void onResume() {
@@ -87,9 +88,17 @@ public class MeetingList extends AppCompatActivity {
         EventBus.getDefault().unregister(this);
     }
 
-   @Subscribe
-    public void onDeleteMeeting(DeleteMeetingEvent event){
+    @Subscribe
+    public void onDeleteMeeting(DeleteMeetingEvent event) {
         mApiService.deleteMeeting(event.mMeeting);
         initList();
-   }
+    }
+
+    @Override
+    public void onMeetingClick(int position) {
+        Intent MeetingDetailIntent = new Intent(MeetingList.this, MeetingDetailActivity.class);
+        MeetingDetailIntent.putExtra(KEY_MEETING, mMeeting.get(position));
+        startActivity(MeetingDetailIntent);
+
+    }
 }

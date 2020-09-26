@@ -20,16 +20,18 @@ import java.util.List;
 public class MeetingRecyclerviewAdapter extends RecyclerView.Adapter<MeetingRecyclerviewAdapter.ViewHolder> {
 
     private final List<Meeting> mReunionList;
+    private onMeetingClickListener mOnMeetingClickListener;
 
-    public MeetingRecyclerviewAdapter(List<Meeting> items) {
+    public MeetingRecyclerviewAdapter(List<Meeting> items, onMeetingClickListener onMeetingClickListener) {
         mReunionList = items;
+        this.mOnMeetingClickListener = onMeetingClickListener;
     }
 
     @Override
     public MeetingRecyclerviewAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.content_main, parent, false);
-        return new ViewHolder(view);
+        return new ViewHolder(view , mOnMeetingClickListener);
     }
 
     @Override
@@ -54,12 +56,13 @@ public class MeetingRecyclerviewAdapter extends RecyclerView.Adapter<MeetingRecy
         return mReunionList.size();
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder implements  View.OnClickListener{
         TextView mReunionName, mMemberMails, mDateText, mStartTimeText, mEndTimeText;
         ImageButton mDeleteBtn;
         ImageView mMeetingsPicture;
+        onMeetingClickListener mOnMeetingClickListener;
 
-        ViewHolder(View view) {
+        ViewHolder(View view, onMeetingClickListener onMeetingClickListener) {
             super(view);
             mReunionName = view.findViewById(R.id.txt_reunionName);
             mMemberMails = view.findViewById(R.id.text_memberMails);
@@ -68,6 +71,17 @@ public class MeetingRecyclerviewAdapter extends RecyclerView.Adapter<MeetingRecy
             mEndTimeText = view.findViewById(R.id.txt_endTime);
             mMeetingsPicture = view.findViewById(R.id.imageView_meeting_picture);
             mDeleteBtn = view.findViewById(R.id.imageButton_delete);
+            this.mOnMeetingClickListener = onMeetingClickListener;
+            view.setOnClickListener(this);
         }
+
+        @Override
+        public void onClick(View view) {
+            mOnMeetingClickListener.onMeetingClick(getAdapterPosition());
+        }
+    }
+
+    public interface onMeetingClickListener{
+        void onMeetingClick(int position);
     }
 }

@@ -33,6 +33,7 @@
     <string name="date">Date de la Réunion</string>
     <string name="start_hour">Début </string>
     <string name="hour_end">Fin</string>
+    <string name="about_txt">N\'oubliez de prendre de quoi écrire.</string>
     <string-array name="numbers">
             <item>One</item>
             <item>Two</item>
