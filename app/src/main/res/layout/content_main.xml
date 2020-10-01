@@ -35,12 +35,14 @@
 
         <TextView
             android:id="@+id/text_memberMails"
-            android:layout_width="wrap_content"
+            android:layout_width="290dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:textColor="#000"
             android:text="Mail of Member"
             android:textStyle="bold"
+            android:lines="1"
+            android:ellipsize="end"
             app:layout_constraintStart_toEndOf="@+id/imageView_meeting_picture"
             app:layout_constraintTop_toBottomOf="@+id/txt_reunionName" />
 
@@ -85,6 +87,7 @@
             android:layout_width="18dp"
             android:layout_height="20dp"
             android:layout_marginEnd="16dp"
+            android:padding="10dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txt_startTime"
             app:srcCompat="@drawable/ic_delete" />

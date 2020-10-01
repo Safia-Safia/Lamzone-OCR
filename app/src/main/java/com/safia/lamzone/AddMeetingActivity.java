@@ -30,19 +30,20 @@ import com.safia.lamzone.view.RoomSpinnerAdapter;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 
 public class AddMeetingActivity extends AppCompatActivity {
     private EditText mMeetingName;
     ArrayList<String> mList_Emails = new ArrayList<>();
     private TextView mText_StartTime, mText_EndTime, mText_Date, mCardView_Email;
     private MeetingApiService mApiService;
-    private ArrayList<Room> mRoomList;
     private Room meetingRoomChoose;
     RoomSpinnerAdapter mAdapter;
     Spinner spinnerRooms;
     private Button createBtn, mBtn_add_email;
     private ImageButton datePicker, startTimePicker, endTimePicker;
-    private String date, startTime, endTime;
+    private Date startTime, endTime;
+    private String date, txtStartTime, txtEndTime;
     public static final int ADD_USER_ACTIVITY_REQUEST_CODE = 1;
     private Toolbar mToolbar;
     private Calendar currentEndHour, currentStartHour;
@@ -86,8 +87,8 @@ public class AddMeetingActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Meeting meeting = new Meeting(mMeetingName.getText().toString(), mList_Emails, meetingRoomChoose, date, startTime, endTime);
-                if (checkDataValid()) {
-                    if (mApiService.isRoomAvailable(meeting) && mApiService.isDateAvailable(meeting)
+                if (checkDataValid() && compareTime()) {
+                    if (mApiService.isRoomAvailable(meeting)|| mApiService.isDateAvailable(meeting)
                             && mApiService.isTimeAvailable(meeting)) {
                         mApiService.addMeeting(meeting);
                         finish();
@@ -103,8 +104,7 @@ public class AddMeetingActivity extends AppCompatActivity {
     }
 
     private void setUpSpinner() {
-        roomList();
-        mAdapter = new RoomSpinnerAdapter(this, mRoomList);
+        mAdapter = new RoomSpinnerAdapter(this, mApiService.getMeetingRooms());
         spinnerRooms.setAdapter(mAdapter);
     }
 
@@ -133,14 +133,6 @@ public class AddMeetingActivity extends AppCompatActivity {
         });
     }
 
-    private void roomList() {
-        mRoomList = new ArrayList<>();
-        mRoomList.add(new Room("Salle 1", 0x36000000 + Color.CYAN));
-        mRoomList.add(new Room("Salle 2", 0x36000000 + Color.BLUE));
-        mRoomList.add(new Room("Salle 3", 0x36000000 + Color.RED));
-        mRoomList.add(new Room("Salle 4", 0x36000000 + Color.GREEN));
-        mRoomList.add(new Room("Salle 5", 0x36000000 + Color.BLACK));
-    }
 
     private void setUpDatePicker() {
         datePicker.setOnClickListener(new View.OnClickListener() {
@@ -176,10 +168,12 @@ public class AddMeetingActivity extends AppCompatActivity {
                 mTimePicker = new TimePickerDialog(AddMeetingActivity.this, new TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker timePicker, int hour, int minute) {
-                        startTime = hour + " : " + minute;
-                        mText_StartTime.setText(startTime);
+                        txtStartTime = hour + " : " + minute;
+                        mText_StartTime.setText(txtStartTime);
+                        currentStartHour.set(Calendar.HOUR , hour);
+                        currentStartHour.set(Calendar.MINUTE, minute);
                     }
-                }, hour, minute, false);
+                }, hour, minute, true);
                 mTimePicker.show();
             }
         });
@@ -196,8 +190,10 @@ public class AddMeetingActivity extends AppCompatActivity {
                 mTimePicker = new TimePickerDialog(AddMeetingActivity.this, new TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker timePicker, int hour, int minute) {
-                        endTime = hour + " : " + minute;
-                        mText_EndTime.setText(endTime);
+                        txtEndTime = hour + " : " + minute;
+                        mText_EndTime.setText(txtEndTime);
+                        currentEndHour.set(Calendar.HOUR , hour);
+                        currentEndHour.set(Calendar.MINUTE, minute);
                     }
                 }, hour, minute, false);
                 mTimePicker.show();

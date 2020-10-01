@@ -41,8 +41,8 @@ public class MeetingRecyclerviewAdapter extends RecyclerView.Adapter<MeetingRecy
         holder.mMemberMails.setText(meeting.getEmails().toString().replace('[',' ').replace(']',' '));
         holder.mMeetingsPicture.setBackgroundColor(meeting.getRoom().getRoomColor());
         holder.mDateText.setText(meeting.getDate());
-        holder.mStartTimeText.setText(meeting.getStartTime());
-        holder.mEndTimeText.setText(meeting.getEndTime());
+        holder.mStartTimeText.setText(meeting.getStartTime().toString());
+        holder.mEndTimeText.setText(meeting.getEndTime().toString());
         holder.mDeleteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

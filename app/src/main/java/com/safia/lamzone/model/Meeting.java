@@ -3,18 +3,19 @@ package com.safia.lamzone.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.io.DataInput;
+import java.util.Date;
 import java.util.List;
 
 public class Meeting implements Parcelable {
 
     private String mReunionName;
-
-
     private List<String> mEmails;
-    private String mStartTime, mEndTime, mDate;
+    private Date mStartTime, mEndTime;
+    private String mDate;
     private Room mRoom;
 
-    public Meeting(String reunionName, List<String> email, Room room, String date, String startTime, String endTime) {
+    public Meeting(String reunionName, List<String> email, Room room, String date, Date startTime, Date endTime) {
         this.mReunionName = reunionName;
         this.mEmails = email;
         this.mRoom = room;
@@ -26,9 +27,10 @@ public class Meeting implements Parcelable {
     protected Meeting(Parcel in) {
         mReunionName = in.readString();
         mEmails = in.createStringArrayList();
-        mStartTime = in.readString();
-        mEndTime = in.readString();
         mDate = in.readString();
+        mStartTime = new Date(in.readLong());
+        mEndTime = new Date (in.readLong());
+        mRoom = in.readParcelable(Room.class.getClassLoader());
     }
 
     public static final Creator<Meeting> CREATOR = new Creator<Meeting>() {
@@ -49,12 +51,13 @@ public class Meeting implements Parcelable {
     }
 
     @Override
-    public void writeToParcel(Parcel parcel, int i) {
+    public void writeToParcel(Parcel parcel, int flag) {
         parcel.writeString(mReunionName);
-        parcel.writeList(mEmails);
+        parcel.writeStringList(mEmails);
         parcel.writeString(mDate);
-        parcel.writeString(mStartTime);
-        parcel.writeString(mEndTime);
+        parcel.writeLong(mStartTime.getTime());
+        parcel.writeLong(mEndTime.getTime());
+        parcel.writeParcelable(mRoom, flag);
     }
 
     public String getReunionName() {
@@ -69,15 +72,17 @@ public class Meeting implements Parcelable {
         return mDate;
     }
 
-    public String getStartTime() {
+    public Date getStartTime() {
         return mStartTime;
+    }
+
+    public Date getEndTime() {
+        return mEndTime;
     }
 
     public List<String> getEmails() {
         return mEmails;
     }
 
-    public String getEndTime() {
-        return mEndTime;
-    }
+
 }

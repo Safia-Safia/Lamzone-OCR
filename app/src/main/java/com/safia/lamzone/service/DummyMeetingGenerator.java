@@ -16,20 +16,23 @@ public class DummyMeetingGenerator {
     }
 
     public static List<Room> DUMMY_ROOMS = Arrays.asList(
-            new Room("Example", 0x36000000 + Color.CYAN),
-            new Room("Example", 0x36000000 + Color.BLUE),
-            new Room("Example", 0x36000000 + Color.RED),
-            new Room("Example", 0x36000000 + Color.GREEN),
-            new Room("Example", 0x36000000 + Color.BLACK),
-            new Room("Example", 0x36000000 + Color.YELLOW),
-            new Room("Example", 0x36000000 + Color.YELLOW));
+            new Room("Salle 1", 0x36000000 + Color.CYAN),
+            new Room("Salle 2", 0x36000000 + Color.BLUE),
+            new Room("Salle 3", 0x36000000 + Color.RED),
+            new Room("Salle 4", 0x36000000 + Color.GREEN),
+            new Room("Salle 5", 0x36000000 + Color.BLACK));
+
 
     static List<Room> generateRooms() {
         return new ArrayList<>(DUMMY_ROOMS);
     }
 
+    private static ArrayList <String> emails = new ArrayList<>(Arrays.asList
+            ("Exemple@yahoo.fr","Exemple@outlook.fr","Exemple@gmail.com","Exemple@hotmail.com"));
+
+
     public static List<Meeting> DUMMY_MEETINGS = Arrays.asList(
-         //   new Meeting("Example", emails, generateRooms().get(0), "26/3", "13h30", "14h40")
+            //new Meeting("Mario", emails, generateRooms().get(0), "26/3", , "14h40")
          //   , new Meeting("Example", emails, generateRooms().get(2), "26/3", "13h30", "14h40")
     );
 

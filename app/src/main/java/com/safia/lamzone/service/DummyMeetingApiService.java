@@ -54,7 +54,8 @@ public class DummyMeetingApiService implements MeetingApiService {
     @Override
     public boolean isTimeAvailable(Meeting meeting) {
         for (Meeting r2 : mMeetingList) {
-            if (r2.getStartTime().equals(meeting.getStartTime()) || r2.getEndTime().equals(meeting.getEndTime())) {
+            if (r2.getStartTime().equals(meeting.getStartTime()) ||
+                    r2.getEndTime().equals(meeting.getEndTime())){
                 return false;
             }
         }
