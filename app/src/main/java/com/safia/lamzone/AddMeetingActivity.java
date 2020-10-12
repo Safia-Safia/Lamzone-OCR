@@ -28,25 +28,29 @@ import com.safia.lamzone.model.Room;
 import com.safia.lamzone.service.MeetingApiService;
 import com.safia.lamzone.view.RoomSpinnerAdapter;
 
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 public class AddMeetingActivity extends AppCompatActivity {
-    private EditText mMeetingName;
-    ArrayList<String> mList_Emails = new ArrayList<>();
-    private TextView mText_StartTime, mText_EndTime, mText_Date, mCardView_Email;
     private MeetingApiService mApiService;
-    private Room meetingRoomChoose;
-    RoomSpinnerAdapter mAdapter;
-    Spinner spinnerRooms;
+    public static final int ADD_USER_ACTIVITY_REQUEST_CODE = 1;
+    private EditText mMeetingName;
+    private TextView mText_StartTime, mText_EndTime, mText_Date, mCardView_Email;
     private Button createBtn, mBtn_add_email;
     private ImageButton datePicker, startTimePicker, endTimePicker;
-    private Date startTime, endTime;
-    private String date, txtStartTime, txtEndTime;
-    public static final int ADD_USER_ACTIVITY_REQUEST_CODE = 1;
+    private Date startTime, endTime,mDate;
+    private String txtStartTime, txtEndTime;
+    RoomSpinnerAdapter mAdapter;
+    Spinner spinnerRooms;
+    SimpleDateFormat mFormatter;
+    ArrayList<String> mList_Emails = new ArrayList<>();
+    private Calendar currentEndHour, currentStartHour, currentDate;
     private Toolbar mToolbar;
-    private Calendar currentEndHour, currentStartHour;
+    private Room meetingRoomChoose;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,16 +84,23 @@ public class AddMeetingActivity extends AppCompatActivity {
         mToolbar = findViewById(R.id.toolbar2);
         currentEndHour = Calendar.getInstance();
         currentStartHour = Calendar.getInstance();
+        currentDate = Calendar.getInstance();
     }
 
     private void onCreateBtn() {
         createBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Meeting meeting = new Meeting(mMeetingName.getText().toString(), mList_Emails, meetingRoomChoose, date, startTime, endTime);
+                Meeting meeting = new Meeting(
+                        mMeetingName.getText().toString(),
+                        mList_Emails,
+                        meetingRoomChoose,
+                        mDate,
+                        startTime,
+                        endTime);
                 if (checkDataValid() && compareTime()) {
-                    if (mApiService.isRoomAvailable(meeting)|| mApiService.isDateAvailable(meeting)
-                            && mApiService.isTimeAvailable(meeting)) {
+                    if (mApiService.isRoomAvailable(meeting) || mApiService.isDateAvailable(meeting)
+                            || mApiService.isTimeAvailable(meeting)) {
                         mApiService.addMeeting(meeting);
                         finish();
                     } else {
@@ -133,22 +144,23 @@ public class AddMeetingActivity extends AppCompatActivity {
         });
     }
 
-
     private void setUpDatePicker() {
         datePicker.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Calendar currentDate = Calendar.getInstance();
                 int year = currentDate.get(Calendar.YEAR);
                 int month = currentDate.get(Calendar.MONTH);
                 int day = currentDate.get(Calendar.DAY_OF_MONTH);
                 DatePickerDialog mDatePicker;
+                mFormatter = new SimpleDateFormat("E MM yyyy", Locale.FRANCE);
 
                 mDatePicker = new DatePickerDialog(AddMeetingActivity.this, new DatePickerDialog.OnDateSetListener() {
                     @Override
-                    public void onDateSet(DatePicker datePicker, int year, int month, int dayOfMonth) {
-                        date = dayOfMonth + "/" + month + "/" + year;
-                        mText_Date.setText(date);
+                    public void onDateSet(DatePicker datePicker, int dayOfMonth, int month, int year) {
+                        String format = mFormatter.format(dayOfMonth + month + year);
+                        currentDate.set(Calendar.DAY_OF_MONTH,Calendar.MONTH,Calendar.YEAR);
+                        mDate = currentDate.getTime();
+                        mText_Date.setText(format);
                     }
                 }, year, month, day);
                 mDatePicker.show();
@@ -169,9 +181,10 @@ public class AddMeetingActivity extends AppCompatActivity {
                     @Override
                     public void onTimeSet(TimePicker timePicker, int hour, int minute) {
                         txtStartTime = hour + " : " + minute;
-                        mText_StartTime.setText(txtStartTime);
-                        currentStartHour.set(Calendar.HOUR , hour);
+                        currentStartHour.set(Calendar.HOUR, hour);
                         currentStartHour.set(Calendar.MINUTE, minute);
+                        startTime = currentStartHour.getTime();
+                        mText_StartTime.setText(txtStartTime);
                     }
                 }, hour, minute, true);
                 mTimePicker.show();
@@ -192,10 +205,11 @@ public class AddMeetingActivity extends AppCompatActivity {
                     public void onTimeSet(TimePicker timePicker, int hour, int minute) {
                         txtEndTime = hour + " : " + minute;
                         mText_EndTime.setText(txtEndTime);
-                        currentEndHour.set(Calendar.HOUR , hour);
+                        currentEndHour.set(Calendar.HOUR, hour);
                         currentEndHour.set(Calendar.MINUTE, minute);
+                        endTime = currentEndHour.getTime();
                     }
-                }, hour, minute, false);
+                }, hour, minute, true);
                 mTimePicker.show();
             }
         });
@@ -233,10 +247,10 @@ public class AddMeetingActivity extends AppCompatActivity {
     public boolean checkDataValid() {
         if ((mMeetingName.getText().toString().isEmpty() || mList_Emails.size() == 0 ||
                 mText_Date.getText().toString().isEmpty())) {
-            Toast.makeText( this, R.string.emptyData, Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.emptyData, Toast.LENGTH_SHORT).show();
             return false;
         }
-            return true;
+        return true;
     }
 
     @Override

@@ -5,6 +5,34 @@
     <item
         android:id="@+id/action_settings"
         android:orderInCategory="100"
-        android:title="@string/action_settings"
-        app:showAsAction="never" />
+        android:title="Trier"
+        app:showAsAction="never">
+        <menu>
+            <item
+                android:id="@+id/byDate"
+                android:title="@string/par_date" />
+            <item
+                android:id="@+id/byRoom"
+                android:title="@string/par_salle">
+                <menu>
+                    <item
+                        android:id="@+id/room1"
+                        android:title="salle cyan " />
+                    <item
+                        android:id="@+id/room2"
+                        android:title="salle magenta" />
+                    <item
+                        android:id="@+id/room3"
+                        android:title="salle rouge" />
+                    <item
+                        android:id="@+id/room4"
+                        android:title="salle verte" />
+                    <item
+                        android:id="@+id/room5"
+                        android:title="salle grise" />
+                </menu>
+            </item>
+
+        </menu>
+    </item>
 </menu>

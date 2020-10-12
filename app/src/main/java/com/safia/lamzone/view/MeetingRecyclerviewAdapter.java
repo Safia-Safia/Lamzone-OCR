@@ -15,12 +15,15 @@ import com.safia.lamzone.model.Meeting;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.Locale;
 
 public class MeetingRecyclerviewAdapter extends RecyclerView.Adapter<MeetingRecyclerviewAdapter.ViewHolder> {
 
     private final List<Meeting> mReunionList;
     private onMeetingClickListener mOnMeetingClickListener;
+    private SimpleDateFormat mFormatter;
 
     public MeetingRecyclerviewAdapter(List<Meeting> items, onMeetingClickListener onMeetingClickListener) {
         mReunionList = items;
@@ -40,9 +43,14 @@ public class MeetingRecyclerviewAdapter extends RecyclerView.Adapter<MeetingRecy
         holder.mReunionName.setText(meeting.getReunionName());
         holder.mMemberMails.setText(meeting.getEmails().toString().replace('[',' ').replace(']',' '));
         holder.mMeetingsPicture.setBackgroundColor(meeting.getRoom().getRoomColor());
-        holder.mDateText.setText(meeting.getDate());
-        holder.mStartTimeText.setText(meeting.getStartTime().toString());
-        holder.mEndTimeText.setText(meeting.getEndTime().toString());
+        holder.mDateText.setText(meeting.getDate().toString());
+        //For the time
+        mFormatter = new SimpleDateFormat("H:m ", Locale.FRANCE);
+        String formatStartHour = mFormatter.format(meeting.getStartTime());
+        String formatEndHour = mFormatter.format(meeting.getEndTime());
+        holder.mStartTimeText.setText(formatStartHour);
+        holder.mEndTimeText.setText(formatEndHour);
+
         holder.mDeleteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

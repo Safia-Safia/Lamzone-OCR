@@ -3,6 +3,7 @@ package com.safia.lamzone.service;
 import com.safia.lamzone.model.Meeting;
 import com.safia.lamzone.model.Room;
 
+import java.util.Date;
 import java.util.List;
 
 public interface MeetingApiService {
@@ -20,4 +21,8 @@ public interface MeetingApiService {
     boolean isDateAvailable(Meeting meeting);
 
     boolean isTimeAvailable (Meeting meeting);
+
+    List <Meeting> getMeetingByRoom (Room room);
+
+    List <Meeting> getMeetingByDate (Date date);
 }

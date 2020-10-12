@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="rooms">
+        <item name="Salle cyan">Salle cyan</item>
+        <item name="Salle magenta">Salle magenta</item>
+        <item name="Salle rouge">Salle rouge</item>
+        <item name="Salle verte">Salle verte</item>
+        <item name="Salle grise">Salle grise</item>
+    </string-array>
+</resources>

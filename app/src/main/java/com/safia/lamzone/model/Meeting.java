@@ -3,7 +3,6 @@ package com.safia.lamzone.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import java.io.DataInput;
 import java.util.Date;
 import java.util.List;
 
@@ -12,10 +11,10 @@ public class Meeting implements Parcelable {
     private String mReunionName;
     private List<String> mEmails;
     private Date mStartTime, mEndTime;
-    private String mDate;
+    private Date mDate;
     private Room mRoom;
 
-    public Meeting(String reunionName, List<String> email, Room room, String date, Date startTime, Date endTime) {
+    public Meeting(String reunionName, List<String> email, Room room, Date date, Date startTime, Date endTime) {
         this.mReunionName = reunionName;
         this.mEmails = email;
         this.mRoom = room;
@@ -27,7 +26,7 @@ public class Meeting implements Parcelable {
     protected Meeting(Parcel in) {
         mReunionName = in.readString();
         mEmails = in.createStringArrayList();
-        mDate = in.readString();
+        mDate = new Date(in.readLong());
         mStartTime = new Date(in.readLong());
         mEndTime = new Date (in.readLong());
         mRoom = in.readParcelable(Room.class.getClassLoader());
@@ -54,7 +53,7 @@ public class Meeting implements Parcelable {
     public void writeToParcel(Parcel parcel, int flag) {
         parcel.writeString(mReunionName);
         parcel.writeStringList(mEmails);
-        parcel.writeString(mDate);
+        parcel.writeLong(mDate.getTime());
         parcel.writeLong(mStartTime.getTime());
         parcel.writeLong(mEndTime.getTime());
         parcel.writeParcelable(mRoom, flag);
@@ -68,7 +67,7 @@ public class Meeting implements Parcelable {
         return mRoom;
     }
 
-    public String getDate() {
+    public Date getDate() {
         return mDate;
     }
 

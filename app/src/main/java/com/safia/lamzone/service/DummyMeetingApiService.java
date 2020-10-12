@@ -3,6 +3,9 @@ package com.safia.lamzone.service;
 import com.safia.lamzone.model.Meeting;
 import com.safia.lamzone.model.Room;
 
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class DummyMeetingApiService implements MeetingApiService {
@@ -57,8 +60,25 @@ public class DummyMeetingApiService implements MeetingApiService {
             if (r2.getStartTime().equals(meeting.getStartTime()) ||
                     r2.getEndTime().equals(meeting.getEndTime())){
                 return false;
+            }else if (r2.getStartTime().after(meeting.getStartTime()) ||
+                        r2.getEndTime().before(meeting.getEndTime())){
+                return false;
             }
         }
         return true;
     }
+
+    @Override
+    public List<Meeting> getMeetingByRoom(Room room) {
+        ArrayList<Meeting> filterByRoom = new ArrayList<>();
+        for(Meeting meeting : mMeetingList) {
+            if(meeting.getRoom() == (room))
+                filterByRoom.add(meeting);
+        }
+        return filterByRoom;
+    }
+
+    @Override
+    public List<Meeting> getMeetingByDate(Date date) {
+     return null;}
 }
