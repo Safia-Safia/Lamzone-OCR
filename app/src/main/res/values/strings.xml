@@ -35,6 +35,7 @@
     <string name="hour_end">Fin</string>
     <string name="par_date">Par Date</string>
     <string name="par_salle">Par salle</string>
+    <string name="reinitialiser">Réinitialiser</string>
 </resources>
 
 

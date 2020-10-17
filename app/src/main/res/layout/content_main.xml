@@ -27,7 +27,7 @@
             android:layout_marginStart="24dp"
             android:text="Meeting subject"
             android:textSize="18sp"
-            android:textColor="#6E0B14"
+            android:textColor="@color/colorPrimaryDark"
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/text_memberMails"
             app:layout_constraintStart_toEndOf="@+id/imageView_meeting_picture"

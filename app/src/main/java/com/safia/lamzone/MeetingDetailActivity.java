@@ -7,7 +7,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -23,7 +22,7 @@ public class MeetingDetailActivity extends AppCompatActivity {
     private ImageView mColorBlock;
     Button btnClose;
     private Meeting mMeeting;
-    SimpleDateFormat mFormatter;
+    SimpleDateFormat mFormatter, mDateFormatter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +35,7 @@ public class MeetingDetailActivity extends AppCompatActivity {
     }
 
     public void setUpView() {
-        mMeeting = getIntent().getParcelableExtra(MeetingList.KEY_MEETING);
+        mMeeting = getIntent().getParcelableExtra(MeetingListActivity.KEY_MEETING);
         mSubject = findViewById(R.id.detail_subject);
         mDate = findViewById(R.id.detail_date);
         mStartHour = findViewById(R.id.detail_startTime);
@@ -45,20 +44,24 @@ public class MeetingDetailActivity extends AppCompatActivity {
         mColorBlock = findViewById(R.id.decor);
         mText_Room = findViewById(R.id.detail_roomName);
         btnClose = findViewById(R.id.btnClose);
-        mFormatter = new SimpleDateFormat("H:m ", Locale.FRANCE);
+        mFormatter = new SimpleDateFormat("HH:mm ", Locale.FRANCE);
+        mDateFormatter = new SimpleDateFormat("EEEE d MMM yyyy", Locale.FRANCE);
+
     }
 
     public void initMeetingDetail() {
         mSubject.setText(mMeeting.getReunionName());
-        mDate.setText(mMeeting.getDate().toString());
         mParticipants.setText(mMeeting.getEmails().toString().replace('[',' ').replace(']',' '));
         mText_Room.setText(mMeeting.getRoom().getRoomName());
         //Colors and backgrounds
         mColorBlock.setBackgroundColor(mMeeting.getRoom().getRoomColor());
+        String formatDate = mDateFormatter.format(mMeeting.getDate());
         String formatStartHour = mFormatter.format(mMeeting.getStartTime());
         String formatEndHour = mFormatter.format(mMeeting.getEndTime());
         mStartHour.setText(formatStartHour);
         mEndHour.setText(formatEndHour);
+        mDate.setText(formatDate);
+
     }
 
     private void setUpCloseBtn(){

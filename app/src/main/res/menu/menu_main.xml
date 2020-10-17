@@ -1,7 +1,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.safia.lamzone.MeetingList">
+    tools:context="com.safia.lamzone.MeetingListActivity">
     <item
         android:id="@+id/action_settings"
         android:orderInCategory="100"
@@ -17,21 +17,24 @@
                 <menu>
                     <item
                         android:id="@+id/room1"
-                        android:title="salle cyan " />
+                        android:title="salle rouge " />
                     <item
                         android:id="@+id/room2"
-                        android:title="salle magenta" />
+                        android:title="salle violette" />
                     <item
                         android:id="@+id/room3"
-                        android:title="salle rouge" />
-                    <item
-                        android:id="@+id/room4"
                         android:title="salle verte" />
                     <item
-                        android:id="@+id/room5"
+                        android:id="@+id/room4"
                         android:title="salle grise" />
+                    <item
+                        android:id="@+id/room5"
+                        android:title="salle bleue" />
                 </menu>
             </item>
+            <item
+                android:id="@+id/initList"
+                android:title="@string/reinitialiser" />
 
         </menu>
     </item>

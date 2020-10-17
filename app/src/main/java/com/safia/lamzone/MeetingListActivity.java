@@ -1,18 +1,14 @@
 package com.safia.lamzone;
 
 import android.app.AlertDialog;
-import android.content.DialogInterface;
+import android.app.DatePickerDialog;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.safia.lamzone.events.DeleteMeetingEvent;
 import com.safia.lamzone.di.DI;
 import com.safia.lamzone.model.Meeting;
-import com.safia.lamzone.model.Room;
-import com.safia.lamzone.service.DummyMeetingGenerator;
 import com.safia.lamzone.service.MeetingApiService;
 import com.safia.lamzone.view.MeetingRecyclerviewAdapter;
 
@@ -24,17 +20,19 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import android.widget.DatePicker;
 import android.widget.RadioGroup;
-import android.widget.Toast;
 
 import androidx.appcompat.widget.Toolbar;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
-public class MeetingList extends AppCompatActivity implements MeetingRecyclerviewAdapter.onMeetingClickListener {
+public class MeetingListActivity extends AppCompatActivity implements MeetingRecyclerviewAdapter.onMeetingClickListener {
     FloatingActionButton fab;
     AlertDialog.Builder mDialog;
     AlertDialog dialog;
@@ -42,10 +40,11 @@ public class MeetingList extends AppCompatActivity implements MeetingRecyclervie
     private RadioGroup mRadioGroup;
     private Toolbar mToolbar;
     private List<Meeting> mMeeting;
+    Date date;
     private RecyclerView mRecyclerView;
     private MeetingApiService mApiService;
     private RecyclerView.LayoutManager layoutManager;
-    private RecyclerView.Adapter mAdapter, mAdapter2;
+    private RecyclerView.Adapter mAdapter;
     public static final String KEY_MEETING = "KEY_MEETING";
 
     @Override
@@ -61,7 +60,7 @@ public class MeetingList extends AppCompatActivity implements MeetingRecyclervie
     }
 
     public void setUpView() {
-        mApiService = DI.getMeetingApiService();
+        mApiService = DI.getNewInstanceApiService();
         fab = findViewById(R.id.addReunion);
         mToolbar = findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
@@ -71,7 +70,7 @@ public class MeetingList extends AppCompatActivity implements MeetingRecyclervie
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MeetingList.this, AddMeetingActivity.class);
+                Intent intent = new Intent(MeetingListActivity.this, AddMeetingActivity.class);
                 startActivity(intent);
             }
         });
@@ -115,7 +114,7 @@ public class MeetingList extends AppCompatActivity implements MeetingRecyclervie
 
     @Override
     public void onMeetingClick(int position) {
-        Intent MeetingDetailIntent = new Intent(MeetingList.this, MeetingDetailActivity.class);
+        Intent MeetingDetailIntent = new Intent(MeetingListActivity.this, MeetingDetailActivity.class);
         MeetingDetailIntent.putExtra(KEY_MEETING, mMeeting.get(position));
         startActivity(MeetingDetailIntent);
 
@@ -129,8 +128,27 @@ public class MeetingList extends AppCompatActivity implements MeetingRecyclervie
 
     private void initRoomFilter() {
         mMeeting = mApiService.getMeetingByRoom(mApiService.getMeetingRooms().get(currentRoom));
-        mAdapter2 = new MeetingRecyclerviewAdapter(mMeeting, this);
-        mRecyclerView.setAdapter(mAdapter2);
+        mAdapter = new MeetingRecyclerviewAdapter(mMeeting, this);
+        mRecyclerView.setAdapter(mAdapter);
+    }
+
+    private void initDateFilter() {
+        Calendar c =Calendar.getInstance();
+        int year = c.get(Calendar.YEAR);
+        int month = c.get(Calendar.MONTH);
+        int day = c.get(Calendar.DAY_OF_MONTH);
+        DatePickerDialog mDatePicker;
+
+        mDatePicker = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker datePicker, int year, int month, int dayOfMonth) {
+                mMeeting = mApiService.getMeetingByDate(dayOfMonth,month,year);
+                mAdapter = new MeetingRecyclerviewAdapter(mMeeting, MeetingListActivity.this);
+                mRecyclerView.setAdapter(mAdapter);
+            }
+        }, year, month, day);
+        mDatePicker.show();
+
     }
 
 
@@ -139,30 +157,32 @@ public class MeetingList extends AppCompatActivity implements MeetingRecyclervie
 
         switch (item.getItemId()) {
             case R.id.byDate:
-                initList();
+               initDateFilter();
                 return true;
             case R.id.room1:
-                initRoomFilter();
                 currentRoom = 0;
+                initRoomFilter();
                 return true;
             case R.id.room2:
-                currentRoom = 1;
                 initRoomFilter();
+                currentRoom = 1;
                 return true;
             case R.id.room3:
-                initRoomFilter();
                 currentRoom = 2;
+                initRoomFilter();
                 return true;
             case R.id.room4:
-                initRoomFilter();
                 currentRoom = 3;
+                initRoomFilter();
                 return true;
             case R.id.room5:
-                initRoomFilter();
                 currentRoom = 4;
+                initRoomFilter();
                 return true;
             case R.id.action_settings:
                 return true;
+            case R.id.initList:
+                initList();
         }
         return super.onOptionsItemSelected(item);
     }

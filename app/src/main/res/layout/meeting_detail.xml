@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/customLayout"
     android:layout_width="350dp"
     android:layout_height="475dp"
     android:layout_gravity="center"
-    android:background="#424b4d"
     android:orientation="vertical"
     android:padding="5dp"
-    >
-
+    app:cardCornerRadius="20dp"
+    app:cardBackgroundColor="#424b4d">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -32,7 +32,7 @@
                 android:id="@+id/decor"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                android:layout_marginStart="115dp"
+                android:layout_marginStart="125dp"
                 android:background="#6E0B14"
                 android:src="@drawable/circle_detail" />
 
@@ -116,17 +116,16 @@
             android:textColor="#FFF"
             android:textSize="15sp" />
 
+        <Button
+            android:id="@+id/btnClose"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="25dp"
+            android:background="@drawable/btn_shape"
+            android:text="Ok"
+            android:textColor="#FFF" />
     </LinearLayout>
 
 
-    <Button
-        android:id="@+id/btnClose"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="25dp"
-        android:background="@drawable/btn_shape"
-        android:text="Ok"
-        android:textColor="#FFF" />
-
-</LinearLayout>
+    </androidx.cardview.widget.CardView>

@@ -3,8 +3,8 @@ package com.safia.lamzone;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -29,11 +29,11 @@ import com.safia.lamzone.service.MeetingApiService;
 import com.safia.lamzone.view.RoomSpinnerAdapter;
 
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
+import java.util.TimeZone;
 
 public class AddMeetingActivity extends AppCompatActivity {
     private MeetingApiService mApiService;
@@ -152,14 +152,16 @@ public class AddMeetingActivity extends AppCompatActivity {
                 int month = currentDate.get(Calendar.MONTH);
                 int day = currentDate.get(Calendar.DAY_OF_MONTH);
                 DatePickerDialog mDatePicker;
-                mFormatter = new SimpleDateFormat("E MM yyyy", Locale.FRANCE);
+                mFormatter = new SimpleDateFormat("dd-MMM-yyyy", Locale.FRANCE);
 
                 mDatePicker = new DatePickerDialog(AddMeetingActivity.this, new DatePickerDialog.OnDateSetListener() {
                     @Override
-                    public void onDateSet(DatePicker datePicker, int dayOfMonth, int month, int year) {
-                        String format = mFormatter.format(dayOfMonth + month + year);
-                        currentDate.set(Calendar.DAY_OF_MONTH,Calendar.MONTH,Calendar.YEAR);
+                    public void onDateSet(DatePicker datePicker, int year, int month, int dayOfMonth ) {
+                        currentDate.set(Calendar.YEAR,year);
+                        currentDate.set(Calendar.MONTH, month);
+                        currentDate.set(Calendar.DAY_OF_MONTH, dayOfMonth);
                         mDate = currentDate.getTime();
+                        String format = mFormatter.format(mDate.getTime());
                         mText_Date.setText(format);
                     }
                 }, year, month, day);

@@ -24,5 +24,5 @@ public interface MeetingApiService {
 
     List <Meeting> getMeetingByRoom (Room room);
 
-    List <Meeting> getMeetingByDate (Date date);
+    List <Meeting> getMeetingByDate (int d, int m, int y);
 }

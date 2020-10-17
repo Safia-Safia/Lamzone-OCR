@@ -15,7 +15,7 @@
             android:id="@+id/text_view_user_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:backgroundTint="#991d34"
+            android:backgroundTint="#1692cc"
             app:layout_constraintTop_toTopOf="parent">
 
             <TextView
@@ -47,7 +47,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_margin="20dp"
-            android:background="#8a1e32"
+            android:background="#157DAE"
             android:text="AJOUTER"
             android:textColor="#FFFFFF"
             android:textSize="15sp"
