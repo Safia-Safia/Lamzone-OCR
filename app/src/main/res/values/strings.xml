@@ -36,6 +36,15 @@
     <string name="par_date">Par Date</string>
     <string name="par_salle">Par salle</string>
     <string name="reinitialiser">Réinitialiser</string>
+    <string name="meeting_subject">Meeting subject</string>
+    <string name="terminer">Terminer</string>
+    <string name="ajouter_des_participants">Ajouter des participants</string>
+    <string name="ajouter_un_participant">Ajouter un participant</string>
+    <string name="ajouter">AJOUTER</string>
+    <string name="endTime">endTime</string>
+    <string name="starttime">startTime</string>
+    <string name="mail_of_member">Mail of Member</string>
+    <string name="date_txt">date</string>
 </resources>
 
 

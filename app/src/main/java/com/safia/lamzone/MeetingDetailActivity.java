@@ -1,7 +1,5 @@
 package com.safia.lamzone;
 
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -31,7 +29,6 @@ public class MeetingDetailActivity extends AppCompatActivity {
         setUpView();
         initMeetingDetail();
         setUpCloseBtn();
-        getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
     }
 
     public void setUpView() {

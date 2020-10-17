@@ -1,6 +1,5 @@
 package com.safia.lamzone;
 
-import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -21,29 +20,20 @@ import android.view.MenuItem;
 import android.view.View;
 
 import android.widget.DatePicker;
-import android.widget.RadioGroup;
-
 import androidx.appcompat.widget.Toolbar;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 public class MeetingListActivity extends AppCompatActivity implements MeetingRecyclerviewAdapter.onMeetingClickListener {
     FloatingActionButton fab;
-    AlertDialog.Builder mDialog;
-    AlertDialog dialog;
     int currentRoom;
-    private RadioGroup mRadioGroup;
-    private Toolbar mToolbar;
     private List<Meeting> mMeeting;
-    Date date;
     private RecyclerView mRecyclerView;
     private MeetingApiService mApiService;
-    private RecyclerView.LayoutManager layoutManager;
     private RecyclerView.Adapter mAdapter;
     public static final String KEY_MEETING = "KEY_MEETING";
 
@@ -62,8 +52,8 @@ public class MeetingListActivity extends AppCompatActivity implements MeetingRec
     public void setUpView() {
         mApiService = DI.getNewInstanceApiService();
         fab = findViewById(R.id.addReunion);
-        mToolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(mToolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
     }
 
     public void onClickFab() {
@@ -78,7 +68,7 @@ public class MeetingListActivity extends AppCompatActivity implements MeetingRec
 
     private void setUpRecyclerView() {
         mRecyclerView = findViewById(R.id.meeting_list);
-        layoutManager = new LinearLayoutManager(this);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(layoutManager);
     }
 
