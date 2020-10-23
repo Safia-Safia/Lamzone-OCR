@@ -32,7 +32,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
-import java.util.TimeZone;
 
 public class AddMeetingActivity extends AppCompatActivity {
     private MeetingApiService mApiService;
@@ -74,7 +73,7 @@ public class AddMeetingActivity extends AppCompatActivity {
         createBtn = findViewById(R.id.btn_create);
         spinnerRooms = findViewById(R.id.spinner);
         datePicker = findViewById(R.id.btn_datePicker);
-        startTimePicker = findViewById(R.id.btn_timePicker);
+        startTimePicker = findViewById(R.id.btn_start_timePicker);
         endTimePicker = findViewById(R.id.btn_end_timePicker);
         mText_Date = findViewById(R.id.txt_date_picker);
         mText_StartTime = findViewById(R.id.txt_start_time_picker);

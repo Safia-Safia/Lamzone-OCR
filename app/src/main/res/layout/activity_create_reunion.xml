@@ -44,7 +44,7 @@
         app:layout_constraintStart_toEndOf="@+id/btn_datePicker" />
 
     <ImageButton
-        android:id="@+id/btn_timePicker"
+        android:id="@+id/btn_start_timePicker"
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:layout_marginStart="32dp"
@@ -64,8 +64,8 @@
         android:text="@string/start_hour"
         android:textColor="#003036"
         android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="@+id/btn_timePicker"
-        app:layout_constraintStart_toEndOf="@+id/btn_timePicker" />
+        app:layout_constraintBottom_toBottomOf="@+id/btn_start_timePicker"
+        app:layout_constraintStart_toEndOf="@+id/btn_start_timePicker" />
 
     <ImageButton
         android:id="@+id/btn_end_timePicker"
@@ -89,7 +89,7 @@
         android:text="@string/hour_end"
         android:textColor="#003036"
         android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="@+id/btn_timePicker"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_start_timePicker"
         app:layout_constraintStart_toEndOf="@+id/btn_end_timePicker" />
 
     <View

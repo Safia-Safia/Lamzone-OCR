@@ -17,7 +17,7 @@
                 <menu>
                     <item
                         android:id="@+id/room1"
-                        android:title="salle rouge " />
+                        android:title="@string/salle_rouge" />
                     <item
                         android:id="@+id/room2"
                         android:title="salle violette" />
