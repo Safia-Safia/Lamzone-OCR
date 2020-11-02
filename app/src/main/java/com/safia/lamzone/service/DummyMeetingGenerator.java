@@ -29,15 +29,15 @@ public class DummyMeetingGenerator {
     }
 
     public static ArrayList<String> emails = new ArrayList<>(Arrays.asList
-            ("Exemple@yahoo.fr", "Exemple@outlook.fr", "Exemple@gmail.com", "Exemple@hotmail.com"));
+            ("Exemple@yahoo.fr", "Luigi@outlook.fr", "Waluigi@gmail.com", "Exemple@hotmail.com"));
 
 
     public static List<Meeting> DUMMY_MEETINGS = Arrays.asList(
-            new Meeting("Reunion 1", emails, generateRooms().get(0), new Date(200820), new Date(1430), new Date(1530))
-            , new Meeting("Reunion 2", emails, generateRooms().get(2), new Date(100920), new Date(1730), new Date(1630))
-            , new Meeting("Reunion 3", emails, generateRooms().get(1), new Date(541651), new Date(1730), new Date(1630))
-            , new Meeting("Reunion 4", emails, generateRooms().get(4), new Date(541651), new Date(1730), new Date(1630))
-            , new Meeting("Reunion 5", emails, generateRooms().get(0), new Date(96325), new Date(14030), new Date(1530))
+            new Meeting("Reunion 1", emails, generateRooms().get(0), new Date(202062900), new Date(), new Date())
+            , new Meeting("Reunion 2", emails, generateRooms().get(2), new Date(), new Date(1430), new Date(1530))
+            , new Meeting("Reunion 3", emails, generateRooms().get(1), new Date(541651), new Date(), new Date())
+            , new Meeting("Reunion 4", emails, generateRooms().get(4), new Date(541651), new Date(1730), new Date())
+            , new Meeting("Reunion 5", emails, generateRooms().get(0), new Date(), new Date(1430), new Date(1500))
     );
 
 }

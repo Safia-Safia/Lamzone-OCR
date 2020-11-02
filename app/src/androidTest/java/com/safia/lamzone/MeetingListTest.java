@@ -63,7 +63,7 @@ public class MeetingListTest {
             new ActivityTestRule(MeetingListActivity.class);
 
     @Test
-    public void NeighboursList_shouldNotBeEmpty() {
+    public void MeetingList_shouldNotBeEmpty() {
         onView(withId(R.id.meeting_list))
                 .check(matches(hasMinimumChildCount(1)));
     }
@@ -97,7 +97,7 @@ public class MeetingListTest {
     }
 
 
-    public void setTime() {
+    private void setTime() {
         onView(withId(R.id.btn_start_timePicker)).perform(click());
         onView(withClassName(Matchers.equalTo(TimePicker.class.getName()))).perform(PickerActions.setTime(17, 10));
         onView(withText("OK")).perform(click());
@@ -106,12 +106,12 @@ public class MeetingListTest {
         onView(withText("OK")).perform(click());
     }
 
-    public void selectRoom() {
+    private void selectRoom() {
         onView(ViewMatchers.withId(R.id.spinner)).perform(click());
         onView(withText("Salle violette")).perform(click());
     }
 
-    public void addEmail() {
+    private void addEmail() {
         onView(withId(R.id.btn_add_email)).perform(click());
         onView(withId(R.id.edit_text_user_email)).perform(typeText("Mail@gmail.com"));
         onView(withId(R.id.btn_new_user)).perform(click());

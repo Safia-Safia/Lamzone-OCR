@@ -11,14 +11,18 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
+
 /**
  * Example local unit test, which will execute on the development machine (host).
  *
@@ -49,23 +53,59 @@ public class MeetingServiceTest {
 
     @Test
     public void deleteMeeting() {
-        List<Meeting> meetingToDelete = mApiService.getMeeting();
-        mApiService.deleteMeeting(meetingToDelete.get(0));
+        Meeting meetingToDelete = mApiService.getMeeting().get(0);
+        mApiService.deleteMeeting(meetingToDelete);
         assertFalse(mApiService.getMeeting().contains(meetingToDelete));
     }
 
     @Test
     public void addMeeting() {
-        List <String> email = DummyMeetingGenerator.emails;
+        List<String> email = DummyMeetingGenerator.emails;
         List<Room> roomList = mApiService.getMeetingRooms();
-        Meeting meetingCreated = new Meeting ("Name",email, roomList.get(0),new Date(200820), new Date(1430), new Date(1530));
+        Meeting meetingCreated = new Meeting("Name", email, roomList.get(0), new Date(200820), new Date(1430), new Date(1530));
         mApiService.addMeeting(meetingCreated);
         assertTrue(mApiService.getMeeting().contains(meetingCreated));
     }
 
     @Test
     public void getMeetingByRoom() {
-        List<Meeting> meeting = mApiService.getMeeting();
+        List<Meeting> meeting = mApiService.getMeetingByRoom(mApiService.getMeetingRooms().get(0));
+        assertEquals(2, meeting.size());
+    }
+
+    @Test
+    public void getMeetingByDate() {
+        Date date = new Date(541651);
+        Calendar c = Calendar.getInstance();
+        c.setTime(date);
+        int year = c.get(Calendar.YEAR);
+        int month = c.get(Calendar.MONTH);
+        int day = c.get(Calendar.DAY_OF_MONTH);
+        List<Meeting> filteredMeeting = mApiService.getMeetingByDate(day, month, year);
+        assertEquals(2, filteredMeeting.size());
+    }
+
+    @Test
+    public void isRoomAvailable() {
+        List<Room> roomList = mApiService.getMeetingRooms();
+        List<Meeting> meeting = DummyMeetingGenerator.DUMMY_MEETINGS;
+        assertNotEquals(meeting.get(1), roomList.get(1));
+    }
+
+    @Test
+    public void isDateAvailable(){
+        Meeting meetings = mApiService.getMeeting().get(2);
+        Meeting meeting2 = mApiService.getMeeting().get(3);
+        assertEquals(meetings.getDate(),meeting2.getDate());
+    }
+
+    @Test
+    public void isTimeAvailable(){
+        Meeting meeting = mApiService.getMeeting().get(0);
+        Meeting meeting1 = mApiService.getMeeting().get(1);
+        Meeting meeting2 = mApiService.getMeeting().get(2);
+        assertEquals(meeting.getStartTime(),meeting2.getStartTime());
+        assertNotEquals(meeting1.getStartTime(), meeting2.getStartTime());
     }
 
 }
