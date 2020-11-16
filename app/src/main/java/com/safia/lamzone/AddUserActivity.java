@@ -84,10 +84,10 @@ public class AddUserActivity extends AppCompatActivity {
                 name = mEditEmail.getText().toString();
 
                 if (name.trim().matches(emailPattern)) {
-                    Toast.makeText(getApplicationContext(), "valid email address", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), R.string.valid_email_address, Toast.LENGTH_SHORT).show();
                     mBtnAddEmail.setEnabled(true);
                 } else {
-                    mEditEmail.setError("Invalid email address");
+                    mEditEmail.setError(getString(R.string.invalid_email_address));
                     mBtnAddEmail.setEnabled(false);
                 }
             }

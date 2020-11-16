@@ -45,7 +45,7 @@ public class MeetingListActivity extends AppCompatActivity implements MeetingRec
         setUpView();
         setUpRecyclerView();
         initList();
-        onClickFab();
+        onClickAdd();
 
     }
 
@@ -56,7 +56,7 @@ public class MeetingListActivity extends AppCompatActivity implements MeetingRec
         setSupportActionBar(toolbar);
     }
 
-    public void onClickFab() {
+    public void onClickAdd() {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

@@ -87,9 +87,12 @@ public class MeetingServiceTest {
 
     @Test
     public void isRoomAvailable() {
+        List<String> email = DummyMeetingGenerator.emails;
         List<Room> roomList = mApiService.getMeetingRooms();
-        List<Meeting> meeting = DummyMeetingGenerator.DUMMY_MEETINGS;
-        assertNotEquals(meeting.get(1), roomList.get(1));
+        Meeting meetingCreated1 = new Meeting("Name", email, roomList.get(0), new Date(200820), new Date(1430), new Date(1530));
+        Meeting meetingCreated2 = new Meeting("Name", email, roomList.get(0), new Date(202062900), new Date(), new Date());
+        assertTrue(mApiService.isRoomAvailable(meetingCreated1));
+        assertFalse(mApiService.isRoomAvailable(meetingCreated2));
     }
 
     @Test

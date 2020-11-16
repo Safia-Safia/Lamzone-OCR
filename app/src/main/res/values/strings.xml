@@ -45,7 +45,15 @@
     <string name="starttime">startTime</string>
     <string name="mail_of_member">Mail of Member</string>
     <string name="date_txt">date</string>
-    <string name="salle_rouge">salle rouge</string>
+    <string name="red">salle rouge</string>
+    <string name="vérifier_heure">Verifiez l\'heure</string>
+    <string name="valid_email_address">"adresse valide "</string>
+    <string name="invalid_email_address">Adresse Invalide</string>
+    <string name="filter">Filtrer</string>
+    <string name="purple">salle violette</string>
+    <string name="green">salle verte</string>
+    <string name="grey">salle grise</string>
+    <string name="blue">salle bleue</string>
 </resources>
 
 

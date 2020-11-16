@@ -1,5 +1,10 @@
 package com.safia.lamzone.service;
 
+import android.util.Log;
+import android.widget.Toast;
+
+import com.safia.lamzone.AddMeetingActivity;
+import com.safia.lamzone.R;
 import com.safia.lamzone.model.Meeting;
 import com.safia.lamzone.model.Room;
 
@@ -32,39 +37,34 @@ public class DummyMeetingApiService implements MeetingApiService {
         mMeetingList.remove(meeting);
     }
 
-
     @Override
-    public boolean isRoomAvailable(Meeting meeting) {
+    public boolean areDataAvailable(Meeting meeting) {
         for (Meeting r : mMeetingList) {
-            if (r.getRoom().equals(meeting.getRoom())) {
-                return false;
+            if (isDateAvailable(meeting, r)) {
+                if (isRoomAvailable(meeting, r)) {
+                   if (isTimeAvailable(meeting, r)) {
+                       return false;
+                   }
+                }
             }
-        }
+       }
         return true;
     }
 
-    @Override
-    public boolean isDateAvailable(Meeting meeting) {
-        for (Meeting r1 : mMeetingList) {
-            if (r1.getDate().equals(meeting.getDate())) {
-                return false;
-            }
-        }
-        return true;
+    private boolean isRoomAvailable(Meeting meeting, Meeting r) {
+        return meeting.getRoom().equals(r.getRoom());
     }
 
-    @Override
-    public boolean isTimeAvailable(Meeting meeting) {
-        for (Meeting r2 : mMeetingList) {
-            if (r2.getStartTime().equals(meeting.getStartTime()) ||
-                    r2.getEndTime().equals(meeting.getEndTime())) {
-                return false;
-            } else if (r2.getStartTime().after(meeting.getStartTime()) ||
-                    r2.getEndTime().before(meeting.getEndTime())) {
-                return false;
-            }
-        }
-        return true;
+    private boolean isDateAvailable(Meeting meeting, Meeting r) {
+        return (meeting.getDate().getDay()== r.getDate().getDay());
+    }
+
+    private boolean isTimeAvailable(Meeting meeting, Meeting r) {
+        if (meeting.getStartTime().getHours() == r.getStartTime().getHours() &&
+                meeting.getEndTime().getHours() == r.getEndTime().getHours()){
+            return  false;
+        } else return meeting.getStartTime().after(r.getStartTime()) &&
+                (meeting.getEndTime().before(r.getEndTime()));
     }
 
     @Override

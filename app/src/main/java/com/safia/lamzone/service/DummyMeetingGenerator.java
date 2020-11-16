@@ -37,7 +37,7 @@ public class DummyMeetingGenerator {
             , new Meeting("Reunion 2", emails, generateRooms().get(2), new Date(), new Date(1430), new Date(1530))
             , new Meeting("Reunion 3", emails, generateRooms().get(1), new Date(541651), new Date(), new Date())
             , new Meeting("Reunion 4", emails, generateRooms().get(4), new Date(541651), new Date(1730), new Date())
-            , new Meeting("Reunion 5", emails, generateRooms().get(0), new Date(), new Date(1430), new Date(1500))
+            , new Meeting("Reunion 5", emails, generateRooms().get(0), new Date(), new Date(), new Date())
     );
 
 }

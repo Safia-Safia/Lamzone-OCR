@@ -40,7 +40,7 @@ public class AddMeetingActivity extends AppCompatActivity {
     private TextView mText_StartTime, mText_EndTime, mText_Date, mCardView_Email;
     private Button createBtn, mBtn_add_email;
     private ImageButton datePicker, startTimePicker, endTimePicker;
-    private Date startTime, endTime,mDate;
+    private Date startTime, endTime, mDate;
     private String txtStartTime, txtEndTime;
     RoomSpinnerAdapter mAdapter;
     Spinner spinnerRooms;
@@ -96,25 +96,14 @@ public class AddMeetingActivity extends AppCompatActivity {
                         mDate,
                         startTime,
                         endTime);
-                if (checkDataValid() && compareTime()) {
-                    if (mApiService.isRoomAvailable(meeting) || mApiService.isDateAvailable(meeting)
-                            || mApiService.isTimeAvailable(meeting)) {
+                if (checkDataValid() && (mApiService.areDataAvailable(meeting))) {
                         mApiService.addMeeting(meeting);
-                        finish();
-                    } else {
-                        Toast.makeText(AddMeetingActivity.this, R.string.anavailableRoom, Toast.LENGTH_LONG).show();
-
-                    }
+                        finish(); }
+                else {
+                    Toast.makeText(AddMeetingActivity.this, R.string.anavailableRoom, Toast.LENGTH_LONG).show();
                 }
-
             }
-
         });
-    }
-
-    private void setUpSpinner() {
-        mAdapter = new RoomSpinnerAdapter(this, mApiService.getMeetingRooms());
-        spinnerRooms.setAdapter(mAdapter);
     }
 
     private void setUpToolbar() {
@@ -123,6 +112,11 @@ public class AddMeetingActivity extends AppCompatActivity {
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+    }
+
+    private void setUpSpinner() {
+        mAdapter = new RoomSpinnerAdapter(this, mApiService.getMeetingRooms());
+        spinnerRooms.setAdapter(mAdapter);
     }
 
     private void onClickOnSpinner() {
@@ -154,8 +148,8 @@ public class AddMeetingActivity extends AppCompatActivity {
 
                 mDatePicker = new DatePickerDialog(AddMeetingActivity.this, new DatePickerDialog.OnDateSetListener() {
                     @Override
-                    public void onDateSet(DatePicker datePicker, int year, int month, int dayOfMonth ) {
-                        currentDate.set(Calendar.YEAR,year);
+                    public void onDateSet(DatePicker datePicker, int year, int month, int dayOfMonth) {
+                        currentDate.set(Calendar.YEAR, year);
                         currentDate.set(Calendar.MONTH, month);
                         currentDate.set(Calendar.DAY_OF_MONTH, dayOfMonth);
                         mDate = currentDate.getTime();
@@ -217,7 +211,7 @@ public class AddMeetingActivity extends AppCompatActivity {
 
     private boolean compareTime() {
         if (currentEndHour.before(currentStartHour) || currentStartHour.equals(currentEndHour)) {
-            Toast.makeText(AddMeetingActivity.this, "Verifiez l'heure", Toast.LENGTH_SHORT).show();
+            Toast.makeText(AddMeetingActivity.this, R.string.vérifier_heure, Toast.LENGTH_SHORT).show();
             return false;
         } else {
             return true;
@@ -245,7 +239,7 @@ public class AddMeetingActivity extends AppCompatActivity {
     }
 
     public boolean checkDataValid() {
-        if ((mMeetingName.getText().toString().isEmpty() || mList_Emails.size() == 0 ||
+        if ((mMeetingName.getText().toString().isEmpty() ||// mList_Emails.size() == 0 ||
                 mText_Date.getText().toString().isEmpty())) {
             Toast.makeText(this, R.string.emptyData, Toast.LENGTH_SHORT).show();
             return false;
