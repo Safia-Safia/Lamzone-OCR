@@ -1,7 +1,6 @@
 package com.safia.lamzone;
 
 
-import android.view.View;
 import android.widget.DatePicker;
 import android.widget.TimePicker;
 
@@ -96,13 +95,12 @@ public class MeetingListTest {
         onView(withId(R.id.meeting_list)).check(withItemCount(ITEMS_COUNT + 1));
     }
 
-
     private void setTime() {
         onView(withId(R.id.btn_start_timePicker)).perform(click());
         onView(withClassName(Matchers.equalTo(TimePicker.class.getName()))).perform(PickerActions.setTime(17, 10));
         onView(withText("OK")).perform(click());
         onView(withId(R.id.btn_end_timePicker)).perform(click());
-        onView(withClassName(Matchers.equalTo(TimePicker.class.getName()))).perform(PickerActions.setTime(17, 20));
+        onView(withClassName(Matchers.equalTo(TimePicker.class.getName()))).perform(PickerActions.setTime(18, 20));
         onView(withText("OK")).perform(click());
     }
 
@@ -122,7 +120,7 @@ public class MeetingListTest {
     @Test
     public void filterByRoom() {
         openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getTargetContext());
-        onView(withText("Trier")).perform(click());
+        onView(withText("Filtrer")).perform(click());
         onView(withText("Par salle")).perform(click());
         onView(withText("salle rouge")).perform(click());
         onView(withId(R.id.meeting_list)).check(withItemCount(2));
@@ -132,7 +130,7 @@ public class MeetingListTest {
     public void filterByDate() {
         createMeeting();
         openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getTargetContext());
-        onView(withText("Trier")).perform(click());
+            onView(withText("Filtrer")).perform(click());
         onView(withText("Par Date")).perform(click());
         onView(withClassName(Matchers.equalTo(DatePicker.class.getName()))).perform(PickerActions.setDate(2020, 8, 25));
     }
@@ -141,7 +139,7 @@ public class MeetingListTest {
     public void reinitialize() {
         filterByRoom();
         openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getTargetContext());
-        onView(withText("Trier")).perform(click());
+        onView(withText("Filtrer")).perform(click());
         onView(withText("Réinitialiser")).perform(click());
     }
 
