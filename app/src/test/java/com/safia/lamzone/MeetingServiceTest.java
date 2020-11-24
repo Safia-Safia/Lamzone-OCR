@@ -3,7 +3,6 @@ package com.safia.lamzone;
 import com.safia.lamzone.di.DI;
 import com.safia.lamzone.model.Meeting;
 import com.safia.lamzone.model.Room;
-import com.safia.lamzone.service.DummyMeetingApiService;
 import com.safia.lamzone.service.DummyMeetingGenerator;
 import com.safia.lamzone.service.MeetingApiService;
 
@@ -11,7 +10,6 @@ import com.safia.lamzone.service.MeetingApiService;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -20,7 +18,6 @@ import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
@@ -87,12 +84,13 @@ public class MeetingServiceTest {
     }
 
 
-   /* @Test
+   @Test
     public void isRoomAvailable() {
         List<String> email = DummyMeetingGenerator.emails;
         List<Room> roomList = mApiService.getMeetingRooms();
-        Meeting meetingCreated1 = new Meeting("Name", email, roomList.get(0), new Date(200820), new Date(1430), new Date(1530));
-        assertTrue(mApiService.canMeetingBeCreated(meetingCreated1));
+        Meeting meetingCreated = new Meeting(
+                "Name", email, roomList.get(0), new Date(200820), new Date(1430), new Date(1530));
+        assertTrue(mApiService.canMeetingBeCreated(meetingCreated));
     }
 
     @Test
@@ -100,15 +98,15 @@ public class MeetingServiceTest {
         List<String> email = DummyMeetingGenerator.emails;
         List<Room> roomList = mApiService.getMeetingRooms();
         Meeting meetingCreated1 = new Meeting("Name", email, roomList.get(0), new Date(200820), new Date(1430), new Date(1530));
-        assertFalse(mApiService.canMeetingBeCreated(meetingCreated1));
+        assertTrue(mApiService.canMeetingBeCreated(meetingCreated1));
     }
 
     @Test
     public void isTimeAvailable() {
         List<String> email = DummyMeetingGenerator.emails;
         List<Room> roomList = mApiService.getMeetingRooms();
-        Meeting meeting = new Meeting("Name", email, roomList.get(0), new Date(200820), new Date(), new Date());
+        Meeting meeting = new Meeting("Name", email, roomList.get(0), new Date(), new Date(), new Date());
         assertFalse(mApiService.canMeetingBeCreated(meeting));
-    }*/
+    }
 
 }

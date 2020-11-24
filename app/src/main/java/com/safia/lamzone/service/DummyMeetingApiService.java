@@ -1,10 +1,5 @@
 package com.safia.lamzone.service;
 
-import android.util.Log;
-import android.widget.Toast;
-
-import com.safia.lamzone.AddMeetingActivity;
-import com.safia.lamzone.R;
 import com.safia.lamzone.model.Meeting;
 import com.safia.lamzone.model.Room;
 
