@@ -38,7 +38,7 @@ public class DummyMeetingApiService implements MeetingApiService {
     }
 
     @Override
-    public boolean areDataAvailable(Meeting meeting) {
+    public boolean canMeetingBeCreated(Meeting meeting) {
         for (Meeting r : mMeetingList) {
             if (isDateAvailable(meeting, r)) {
                 if (isRoomAvailable(meeting, r)) {
@@ -56,15 +56,15 @@ public class DummyMeetingApiService implements MeetingApiService {
     }
 
     private boolean isDateAvailable(Meeting meeting, Meeting r) {
-        return (meeting.getDate().getDay()== r.getDate().getDay());
+        return meeting.getDate().getDay()== r.getDate().getDay();
     }
 
     private boolean isTimeAvailable(Meeting meeting, Meeting r) {
-        if (meeting.getStartTime().getHours() == r.getStartTime().getHours() &&
-                meeting.getEndTime().getHours() == r.getEndTime().getHours()){
+        if (!(meeting.getStartTime().getHours() == r.getStartTime().getHours()) &&
+                !(meeting.getEndTime().getHours() == r.getEndTime().getHours())){
             return  false;
-        } else return meeting.getStartTime().after(r.getStartTime()) &&
-                (meeting.getEndTime().before(r.getEndTime()));
+        } else return !meeting.getStartTime().after(r.getStartTime()) ||
+                !meeting.getEndTime().before(r.getEndTime());
     }
 
     @Override

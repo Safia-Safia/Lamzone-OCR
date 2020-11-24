@@ -4,6 +4,7 @@ import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -96,10 +97,10 @@ public class AddMeetingActivity extends AppCompatActivity {
                         mDate,
                         startTime,
                         endTime);
-                if (checkDataValid() && (mApiService.areDataAvailable(meeting))) {
+                if (checkDataValid() && (mApiService.canMeetingBeCreated(meeting))){
                         mApiService.addMeeting(meeting);
-                        finish(); }
-                else {
+                        finish();
+                } else {
                     Toast.makeText(AddMeetingActivity.this, R.string.anavailableRoom, Toast.LENGTH_LONG).show();
                 }
             }
@@ -174,11 +175,12 @@ public class AddMeetingActivity extends AppCompatActivity {
                 mTimePicker = new TimePickerDialog(AddMeetingActivity.this, new TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker timePicker, int hour, int minute) {
-                        txtStartTime = hour + " : " + minute;
-                        currentStartHour.set(Calendar.HOUR, hour);
+                        currentStartHour.set(Calendar.HOUR_OF_DAY, hour);
                         currentStartHour.set(Calendar.MINUTE, minute);
                         startTime = currentStartHour.getTime();
+                        txtStartTime = hour + " : " + minute;
                         mText_StartTime.setText(txtStartTime);
+                        Log.e("time ", " "+ startTime.getTime());
                     }
                 }, hour, minute, true);
                 mTimePicker.show();
@@ -199,7 +201,7 @@ public class AddMeetingActivity extends AppCompatActivity {
                     public void onTimeSet(TimePicker timePicker, int hour, int minute) {
                         txtEndTime = hour + " : " + minute;
                         mText_EndTime.setText(txtEndTime);
-                        currentEndHour.set(Calendar.HOUR, hour);
+                        currentEndHour.set(Calendar.HOUR_OF_DAY, hour);
                         currentEndHour.set(Calendar.MINUTE, minute);
                         endTime = currentEndHour.getTime();
                     }

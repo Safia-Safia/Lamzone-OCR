@@ -1,5 +1,6 @@
 package com.safia.lamzone.view;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -49,7 +50,8 @@ public class MeetingRecyclerviewAdapter extends RecyclerView.Adapter<MeetingRecy
         String formatDate = mDateFormatter.format(meeting.getDate());
         holder.mDateText.setText(formatDate);
         //For time
-        mFormatter = new SimpleDateFormat("H:m ", Locale.FRANCE);
+        Log.e("Meeting " + position, " meeting " + meeting.getStartTime().getTime());
+        mFormatter = new SimpleDateFormat("HH:mm", Locale.FRANCE);
         String formatStartHour = mFormatter.format(meeting.getStartTime());
         String formatEndHour = mFormatter.format(meeting.getEndTime());
         holder.mStartTimeText.setText(formatStartHour);

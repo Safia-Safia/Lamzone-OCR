@@ -16,7 +16,7 @@ public interface MeetingApiService {
 
     void deleteMeeting(Meeting meeting);
 
-    boolean areDataAvailable (Meeting meeting);
+    boolean canMeetingBeCreated(Meeting meeting);
 
     List <Meeting> getMeetingByRoom (Room room);
 

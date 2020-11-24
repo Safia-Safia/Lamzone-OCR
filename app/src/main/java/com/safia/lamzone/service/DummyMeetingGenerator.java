@@ -34,9 +34,9 @@ public class DummyMeetingGenerator {
 
     public static List<Meeting> DUMMY_MEETINGS = Arrays.asList(
             new Meeting("Reunion 1", emails, generateRooms().get(0), new Date(202062900), new Date(), new Date())
-            , new Meeting("Reunion 2", emails, generateRooms().get(2), new Date(), new Date(1430), new Date(1530))
+            , new Meeting("Reunion 2", emails, generateRooms().get(2), new Date(), new Date(306240893), new Date(226264304))
             , new Meeting("Reunion 3", emails, generateRooms().get(1), new Date(541651), new Date(), new Date())
-            , new Meeting("Reunion 4", emails, generateRooms().get(4), new Date(541651), new Date(1730), new Date())
+            , new Meeting("Reunion 4", emails, generateRooms().get(4), new Date(541651), new Date(1606208416), new Date())
             , new Meeting("Reunion 5", emails, generateRooms().get(0), new Date(), new Date(), new Date())
     );
 
