@@ -34,13 +34,13 @@
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:padding="30dp"
+            android:autofillHints=" "
             android:gravity="center"
             android:hint="@string/ajouter_un_participant"
             android:inputType="textEmailAddress"
+            android:padding="30dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_view_user_email"
-            android:autofillHints=" " />
+            app:layout_constraintTop_toBottomOf="@+id/text_view_user_email" />
 
         <Button
             android:id="@+id/btn_new_user"
@@ -49,10 +49,10 @@
             android:layout_gravity="center"
             android:layout_margin="20dp"
             android:background="#157DAE"
+            android:enabled="false"
             android:text="@string/ajouter"
             android:textColor="#FFFFFF"
             android:textSize="15sp"
-            android:enabled="false"
             app:layout_constraintEnd_toEndOf="@+id/text_view_user_email"
             app:layout_constraintStart_toEndOf="@+id/edit_text_user_email"
             app:layout_constraintTop_toBottomOf="@+id/text_view_user_email"
@@ -61,9 +61,9 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/user_recyclerview"
-            android:layout_marginVertical="30dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginVertical="30dp"
             app:layout_constraintTop_toBottomOf="@+id/btn_new_user"
             tools:listitem="@layout/content_user_rv" />
 

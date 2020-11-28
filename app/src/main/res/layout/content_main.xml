@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
     android:id="@+id/list_meeting"
-    >
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -15,8 +14,8 @@
             android:id="@+id/imageView_meeting_picture"
             android:layout_width="38dp"
             android:layout_height="39dp"
-            android:src="@drawable/circle"
             android:background="#6E0B14"
+            android:src="@drawable/circle"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -27,8 +26,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:text="@string/meeting_subject"
-            android:textSize="18sp"
             android:textColor="@color/colorPrimaryDark"
+            android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/text_memberMails"
             app:layout_constraintStart_toEndOf="@+id/imageView_meeting_picture"
@@ -39,11 +38,11 @@
             android:layout_width="290dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
-            android:textColor="#000"
-            android:text="@string/mail_of_member"
-            android:textStyle="bold"
-            android:lines="1"
             android:ellipsize="end"
+            android:lines="1"
+            android:text="@string/mail_of_member"
+            android:textColor="#000"
+            android:textStyle="bold"
             app:layout_constraintStart_toEndOf="@+id/imageView_meeting_picture"
             app:layout_constraintTop_toBottomOf="@+id/txt_reunionName" />
 
@@ -52,9 +51,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:textSize="13sp"
             android:text="@string/date_txt"
             android:textColor="#000"
+            android:textSize="13sp"
             app:layout_constraintBottom_toTopOf="@+id/text_memberMails"
             app:layout_constraintStart_toEndOf="@+id/txt_reunionName"
             app:layout_constraintTop_toTopOf="@+id/imageView_meeting_picture" />
@@ -64,9 +63,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:textSize="12sp"
             android:text="@string/starttime"
             android:textColor="#000"
+            android:textSize="12sp"
             app:layout_constraintBottom_toTopOf="@+id/text_memberMails"
             app:layout_constraintStart_toEndOf="@+id/txt_reunionDate"
             app:layout_constraintTop_toTopOf="@+id/imageView_meeting_picture" />
@@ -76,9 +75,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:textSize="12sp"
             android:text="@string/endTime"
             android:textColor="#000"
+            android:textSize="12sp"
             app:layout_constraintBottom_toTopOf="@+id/text_memberMails"
             app:layout_constraintStart_toEndOf="@+id/txt_startTime"
             app:layout_constraintTop_toTopOf="@+id/imageView_meeting_picture" />

@@ -54,6 +54,15 @@
     <string name="green">salle verte</string>
     <string name="grey">salle grise</string>
     <string name="blue">salle bleue</string>
+    <string name="salle_choisie">SALLE CHOISIE</string>
+    <string name="detail_roomname">detail_roomName</string>
+    <string name="detail_date">detail_date</string>
+    <string name="detail_reunionname">detail_reunionName</string>
+    <string name="participants">Participants</string>
+    <string name="ok">ok</string>
+    <string name="heure">Heure:</string>
+    <string name="_00_00">00 : 00</string>
+    <string name="username">UserName</string>
 </resources>
 
 
