@@ -1,4 +1,4 @@
-# Lamzone-OCR
+# Lamzone (MAREU)-OCR
 
 
 Ce dépôt contient une application pour le Projet 4 d'OpenclassROOM "Créez une application de gestion de réunions".
