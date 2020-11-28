@@ -24,7 +24,6 @@ public class MeetingRecyclerviewAdapter extends RecyclerView.Adapter<MeetingRecy
 
     private final List<Meeting> mReunionList;
     private onMeetingClickListener mOnMeetingClickListener;
-    private SimpleDateFormat mFormatter, mDateFormatter;
 
     public MeetingRecyclerviewAdapter(List<Meeting> items, onMeetingClickListener onMeetingClickListener) {
         mReunionList = items;
@@ -46,14 +45,14 @@ public class MeetingRecyclerviewAdapter extends RecyclerView.Adapter<MeetingRecy
         holder.mMeetingsPicture.setBackgroundColor(meeting.getRoom().getRoomColor());
 
         //For Date
-        mDateFormatter = new SimpleDateFormat("EEEE d MMM yyyy", Locale.FRANCE);
-        String formatDate = mDateFormatter.format(meeting.getDate());
+        SimpleDateFormat dateFormatter = new SimpleDateFormat("EEEE d MMM yyyy", Locale.FRANCE);
+        String formatDate = dateFormatter.format(meeting.getDate());
         holder.mDateText.setText(formatDate);
         //For time
         Log.e("Meeting " + position, " meeting " + meeting.getStartTime().getTime());
-        mFormatter = new SimpleDateFormat("HH:mm", Locale.FRANCE);
-        String formatStartHour = mFormatter.format(meeting.getStartTime());
-        String formatEndHour = mFormatter.format(meeting.getEndTime());
+        SimpleDateFormat formatter = new SimpleDateFormat("HH:mm", Locale.FRANCE);
+        String formatStartHour = formatter.format(meeting.getStartTime());
+        String formatEndHour = formatter.format(meeting.getEndTime());
         holder.mStartTimeText.setText(formatStartHour);
         holder.mEndTimeText.setText(formatEndHour);
 

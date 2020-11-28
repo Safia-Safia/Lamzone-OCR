@@ -60,7 +60,8 @@ public class MeetingServiceTest {
     public void addMeeting() {
         List<String> email = DummyMeetingGenerator.emails;
         List<Room> roomList = mApiService.getMeetingRooms();
-        Meeting meetingCreated = new Meeting("Name", email, roomList.get(0), new Date(200820), new Date(1430), new Date(1530));
+        Meeting meetingCreated = new Meeting("Name", email, roomList.get(0),
+                                 new Date(200820), new Date(1430), new Date(1530));
         mApiService.addMeeting(meetingCreated);
         assertTrue(mApiService.getMeeting().contains(meetingCreated));
     }
@@ -97,7 +98,8 @@ public class MeetingServiceTest {
     public void isDateAvailable() {
         List<String> email = DummyMeetingGenerator.emails;
         List<Room> roomList = mApiService.getMeetingRooms();
-        Meeting meetingCreated1 = new Meeting("Name", email, roomList.get(0), new Date(200820), new Date(1430), new Date(1530));
+        Meeting meetingCreated1 = new Meeting(
+                "Name", email, roomList.get(0), new Date(200820), new Date(1430), new Date(1530));
         assertTrue(mApiService.canMeetingBeCreated(meetingCreated1));
     }
 
@@ -105,7 +107,8 @@ public class MeetingServiceTest {
     public void isTimeAvailable() {
         List<String> email = DummyMeetingGenerator.emails;
         List<Room> roomList = mApiService.getMeetingRooms();
-        Meeting meeting = new Meeting("Name", email, roomList.get(0), new Date(), new Date(), new Date());
+        Meeting meeting = new Meeting(
+                "Name", email, roomList.get(0), new Date(), new Date(), new Date());
         assertFalse(mApiService.canMeetingBeCreated(meeting));
     }
 

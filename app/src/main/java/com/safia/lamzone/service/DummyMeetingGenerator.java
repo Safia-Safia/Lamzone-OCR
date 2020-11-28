@@ -12,7 +12,7 @@ import java.util.List;
 
 public class DummyMeetingGenerator {
 
-    public static List<Meeting> generateMeetings() {
+    static List<Meeting> generateMeetings() {
         return new ArrayList<>(DUMMY_MEETINGS);
     }
 

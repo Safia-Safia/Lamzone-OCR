@@ -4,7 +4,6 @@ import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -97,7 +96,7 @@ public class AddMeetingActivity extends AppCompatActivity {
                         mDate,
                         startTime,
                         endTime);
-                if (checkDataValid() && (mApiService.canMeetingBeCreated(meeting))){
+                if (checkDataValid() && compareTime() && (mApiService.canMeetingBeCreated(meeting))){
                         mApiService.addMeeting(meeting);
                         finish();
                 } else {
@@ -180,7 +179,6 @@ public class AddMeetingActivity extends AppCompatActivity {
                         startTime = currentStartHour.getTime();
                         txtStartTime = hour + " : " + minute;
                         mText_StartTime.setText(txtStartTime);
-                        Log.e("time ", " "+ startTime.getTime());
                     }
                 }, hour, minute, true);
                 mTimePicker.show();
@@ -212,7 +210,7 @@ public class AddMeetingActivity extends AppCompatActivity {
     }
 
     private boolean compareTime() {
-        if (currentEndHour.before(currentStartHour) || currentStartHour.equals(currentEndHour)) {
+        if (currentStartHour.after(currentEndHour) || currentStartHour.equals(currentEndHour)) {
             Toast.makeText(AddMeetingActivity.this, R.string.vérifier_heure, Toast.LENGTH_SHORT).show();
             return false;
         } else {
@@ -241,7 +239,7 @@ public class AddMeetingActivity extends AppCompatActivity {
     }
 
     public boolean checkDataValid() {
-        if ((mMeetingName.getText().toString().isEmpty() ||// mList_Emails.size() == 0 ||
+        if ((mMeetingName.getText().toString().isEmpty() || mList_Emails.size() == 0 ||
                 mText_Date.getText().toString().isEmpty())) {
             Toast.makeText(this, R.string.emptyData, Toast.LENGTH_SHORT).show();
             return false;
