@@ -2,8 +2,6 @@ package com.safia.lamzone.service;
 
 import com.safia.lamzone.model.Meeting;
 import com.safia.lamzone.model.Room;
-
-import java.util.Date;
 import java.util.List;
 
 public interface MeetingApiService {
